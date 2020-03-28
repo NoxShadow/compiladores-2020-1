@@ -7,7 +7,7 @@ declare var $: any;
 @Component({
   selector: 'app-main-edit',
   templateUrl: './main-edit.component.html',
-  styleUrls: ['./main-edit.component.scss', './scripts/jquery-linedtextarea.scss'],
+  styleUrls: ['./main-edit.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class MainEditComponent implements OnInit {
