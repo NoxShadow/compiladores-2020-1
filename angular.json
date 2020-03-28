@@ -28,9 +28,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss","src/app/main-edit/scripts/jquery-linedtextarea.scss"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js","src/app/main-edit/scripts/jquery-linedtextarea.js"]
           },
           "configurations": {
             "production": {
