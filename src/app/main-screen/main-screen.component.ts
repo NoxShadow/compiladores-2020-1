@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainScreenComponent implements OnInit {
 
+  caminhoArquivo = '';
+
   constructor() { }
 
   ngOnInit(): void {

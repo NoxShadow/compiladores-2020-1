@@ -1,0 +1,13 @@
+div {
+    overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+#messagens-table {
+    resize: none;
+    white-space: pre;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    width: 100%;
+    min-height: 200px;
+}
