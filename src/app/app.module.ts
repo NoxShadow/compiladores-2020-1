@@ -9,6 +9,7 @@ import { MainEditComponent } from './main-edit/main-edit.component';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { ToolBarComponent } from './tool-bar/tool-bar.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
