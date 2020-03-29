@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Event } from '../tool-bar/Event';
 import { MainEditComponent } from '../main-edit/main-edit.component';
 import { MessageAreaComponent } from '../message-area/message-area.component';
+import * as FileSaver from 'file-saver';
 
 const fileInputId = 'openFileInput';
 
@@ -37,9 +38,7 @@ export class MainScreenComponent implements OnInit {
         this.openFileInput();
         break;
       case Event.save:
-        if (this.filePath !== '') {
-          this.saveFileContent();
-        }
+        this.saveFileContent();
         break;
       case Event.copy:
       case Event.cut:
@@ -80,7 +79,8 @@ export class MainScreenComponent implements OnInit {
   }
 
   private saveFileContent(): void {
-
+    var file = new File([this.editComponent.code], "linguagem.txt", {type: "text/plain;charset=utf-8"});
+    FileSaver.saveAs(file);
   }
 
   private clearData(): void {
