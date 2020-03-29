@@ -3,8 +3,6 @@ import { Event } from '../tool-bar/Event';
 import { MainEditComponent } from '../main-edit/main-edit.component';
 import { MessageAreaComponent } from '../message-area/message-area.component';
 
-declare var createContentFile: any;
-
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
@@ -38,7 +36,6 @@ export class MainScreenComponent implements OnInit {
           this.saveFileContent();
         } else {
           this.getFileDirectory();
-          createContentFile(this.filePath, this.editComponent.code);
         }
         break;
       case Event.copy:

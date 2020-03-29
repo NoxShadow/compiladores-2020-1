@@ -34,8 +34,7 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              "src/app/main-edit/scripts/jquery-linedtextarea.js",
-              "src/scripts/SaveFile.js"
+              "src/app/main-edit/scripts/jquery-linedtextarea.js"
             ]
           },
           "configurations": {
