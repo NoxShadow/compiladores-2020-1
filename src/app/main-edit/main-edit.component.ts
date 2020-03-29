@@ -30,4 +30,8 @@ export class MainEditComponent implements OnInit {
     this.code = '';
   }
 
+  setCode(value: string){
+    this.code = value; 
+  }
+
 }
