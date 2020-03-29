@@ -3,6 +3,8 @@ import { Event } from '../tool-bar/Event';
 import { MainEditComponent } from '../main-edit/main-edit.component';
 import { MessageAreaComponent } from '../message-area/message-area.component';
 
+const fileInputId = 'openFileInput';
+
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
@@ -15,11 +17,14 @@ export class MainScreenComponent implements OnInit {
   @ViewChild(MessageAreaComponent)
   messageComponent: MessageAreaComponent;
 
+  fileInput: any;
+
   filePath = '';
 
   constructor() { }
 
   ngOnInit(): void {
+    this.fileInput = document.getElementById(fileInputId) as HTMLInputElement;
   }
 
   handleEventReceived(event: Event): void {
@@ -29,13 +34,11 @@ export class MainScreenComponent implements OnInit {
         this.clearData();
         break;
       case Event.open:
-        this.openFileInput(false);
+        this.openFileInput();
         break;
       case Event.save:
         if (this.filePath !== '') {
           this.saveFileContent();
-        } else {
-          this.getFileDirectory();
         }
         break;
       case Event.copy:
@@ -52,14 +55,28 @@ export class MainScreenComponent implements OnInit {
     }
   }
 
-  private openFileInput(isDirectory: boolean): void {
-    if (isDirectory) {
-      this.getFileDirectory();
+  handleFileInput() {
+    const files = this.fileInput.files;
+    if (files && files[0] && files[0].type === 'text/plain') {
+      const file = files[0];
+      this.clearData();
+
+      const reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+      reader.onload = evt => {
+        this.editComponent.code = evt.target.result.toString();
+        debugger;
+        this.filePath = file.webkitRelativePath;
+      };
+      reader.onerror = evt => {
+        this.messageComponent.displayContent('Erro ao ler arquivo');
+      };
     }
   }
 
-  private getFileDirectory(): void {
+  private openFileInput(): void {
 
+    this.fileInput.click();
   }
 
   private saveFileContent(): void {
