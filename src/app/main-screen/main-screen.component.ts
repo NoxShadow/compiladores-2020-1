@@ -73,6 +73,10 @@ export class MainScreenComponent implements OnInit {
     }
   }
 
+  private openFileInput(): void {
+
+    this.fileInput.click();
+  }
 
   private saveFileContent(): void {
     var file = new File([this.editComponent.code], "linguagem.txt", {type: "text/plain;charset=utf-8"});
