@@ -7,15 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageAreaComponent implements OnInit {
 
-  mensagens: string[] = [];
+  mensagem = '';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  get mensagensDisplay() {
-    return this.mensagens.length > 0 ? this.mensagens : ['', '', ''];
+  displayContent(content: string) {
+    this.mensagem = content;
+  }
+
+  get mensagemDisplay() {
+    return this.mensagem;
+  }
+
+  clearData() {
+    this.mensagem = '';
   }
 
 }

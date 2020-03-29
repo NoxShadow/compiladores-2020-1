@@ -1,10 +1,26 @@
-<body>
-    <app-toolbar-button name="Novo"></app-toolbar-button>
-    <app-toolbar-button name="Abrir"></app-toolbar-button>
-    <app-toolbar-button name="Salvar"></app-toolbar-button>
-    <app-toolbar-button name="Copiar"></app-toolbar-button>
-    <app-toolbar-button name="Colar"></app-toolbar-button>
-    <app-toolbar-button name="Recortar"></app-toolbar-button>
-    <app-toolbar-button name="Compilar"></app-toolbar-button>
-    <app-toolbar-button name="Equipe"></app-toolbar-button>
-</body>
+<div>
+    <app-toolbar-button (clicked)="handleClick($event)" name="novo [ctrl-n]" faIcon="fas fa-file"
+        event="{{ events.new }}">
+    </app-toolbar-button>
+    <app-toolbar-button (clicked)="handleClick($event)" name="abrir [ctrl-o]" faIcon="fas fa-folder-open"
+        event="{{ events.open }}">
+    </app-toolbar-button>
+    <app-toolbar-button (clicked)="handleClick($event)" name="salvar [ctrl-s]" faIcon="fas fa-save"
+        event="{{ events.save }}">
+    </app-toolbar-button>
+    <app-toolbar-button (clicked)="handleClick($event)" name="copiar [ctrl-c]" faIcon="fas fa-clone"
+        event="{{ events.copy }}">
+    </app-toolbar-button>
+    <app-toolbar-button (clicked)="handleClick($event)" name="colar [ctrl-v]" faIcon="fas fa-paste"
+        event="{{ events.paste }}">
+    </app-toolbar-button>
+    <app-toolbar-button (clicked)="handleClick($event)" name="recortar [ctrl-x]" faIcon="fas fa-cut"
+        event="{{ events.cut }}">
+    </app-toolbar-button>
+    <app-toolbar-button (clicked)="handleClick($event)" name="compilar [F9]" faIcon="fas fa-play"
+        event="{{ events.compile }}">
+    </app-toolbar-button>
+    <app-toolbar-button (clicked)="handleClick($event)" name="equipe [F1]" faIcon="fas fa-users"
+        event="{{ events.team }}">
+    </app-toolbar-button>
+</div>

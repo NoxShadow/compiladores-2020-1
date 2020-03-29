@@ -1,1 +1,5 @@
-<a class="btn btn-outline-dark">{{name}}</a>
+<div class="btn btn-outline-dark" (click)="emitEvent()">
+    <i [ngClass]="faIcon"></i>
+    <br>
+    {{name}}
+</div>
