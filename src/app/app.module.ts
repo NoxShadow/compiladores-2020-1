@@ -8,6 +8,7 @@ import { MessageAreaComponent } from './message-area/message-area.component';
 import { MainEditComponent } from './main-edit/main-edit.component';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { ToolBarComponent } from './tool-bar/tool-bar.component';
+import { ToolbarButtonComponent } from './toolbar-button/toolbar-button.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ToolBarComponent } from './tool-bar/tool-bar.component';
     MessageAreaComponent,
     MainEditComponent,
     MainScreenComponent,
-    ToolBarComponent
+    ToolBarComponent,
+    ToolbarButtonComponent
   ],
   imports: [
     BrowserModule,
