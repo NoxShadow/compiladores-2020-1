@@ -1,0 +1,8 @@
+<body class="main-body">
+    <app-tool-bar (event)="handleEventReceived($event)"></app-tool-bar>
+    <app-main-edit></app-main-edit>
+    <app-message-area></app-message-area>
+    <app-status-bar filePath="{{ filePath }}"></app-status-bar>
+    <input type="file" id="openFileInput" (change)='handleFileInput()'>
+    <input type="file" id="saveFileInput">
+</body>
