@@ -10,11 +10,39 @@ using System.Windows.Forms;
 
 namespace Compiladores20201ProjetoCSharp
 {
-    public partial class Form1 : Form
+    public partial class mainLayout : Form
     {
-        public Form1()
+        private const int MIN_HEIGHT = 639;
+        private const int MIN_WIDTH = 917;
+
+        public mainLayout()
         {
             InitializeComponent();
+
+            Resize += HandleResize;
+        }
+
+        private void HandleResize(object sender, EventArgs e)
+        {
+            Control control = (Control)sender;
+
+            var size = new Size(control.Size.Width, control.Size.Height);
+
+            if (size.Height < MIN_HEIGHT)
+            {
+                size.Height = MIN_HEIGHT;
+            }
+            if (size.Width < MIN_WIDTH)
+            {
+                size.Width = MIN_WIDTH;
+            }
+
+            control.Size = size;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
