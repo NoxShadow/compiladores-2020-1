@@ -117,80 +117,92 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="buttonToolbar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="codeEditor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
-        YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
-        0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
-        bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
-        VzOOpHI7Jr376Hi9ogHqFIANO0/MmmmbmSmm9a8ze+I4MrNWAdjtoJgWcx+PSzg166yZZ8xM8XvXDix9
-        c4jIqFYAjoriBV9AhEPv1mH/sonogha0afbZMMZz+yreTGyhpusHwtNNCsA5U1zS4BLxzJIfg299qO32
-        Ir7UJtZfftyATqeT+8o2D8JSjQrAJblrncYL7ZJ2+bfaFnC/1S1NjL3diRat7qrO7wLRP3HjWsojBeCo
-        mDEo5mNjuweFGvjWg2EBhCbpkW78htSHHwRyNdmgAFzPEee2iFkzayy2OLXzT4gr6UdUnlXrullsxxQ+
-        kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
-        TgDQASA1MVpwzwAAAABJRU5ErkJggg==
-</value>
+  <data name="codeEditor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 72</value>
   </data>
-  <data name="toolStripButton1.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="codeEditor.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
-  <data name="toolStripButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 67</value>
+  <data name="codeEditor.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>878, 388</value>
   </data>
-  <data name="toolStripButton1.Text" xml:space="preserve">
-    <value>toolStripButton1</value>
-  </data>
-  <data name="buttonToolbar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="buttonToolbar.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>900, 70</value>
-  </data>
-  <data name="buttonToolbar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>901, 70</value>
+  <data name="codeEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>878, 388</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonToolbar.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="codeEditor.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="buttonToolbar.Text" xml:space="preserve">
-    <value>toolStrip1</value>
+  <data name="&gt;&gt;codeEditor.Name" xml:space="preserve">
+    <value>codeEditor</value>
   </data>
-  <data name="&gt;&gt;buttonToolbar.Name" xml:space="preserve">
-    <value>buttonToolbar</value>
+  <data name="&gt;&gt;codeEditor.Type" xml:space="preserve">
+    <value>ScintillaNET.Scintilla, ScintillaNET, Version=3.6.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;buttonToolbar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonToolbar.Parent" xml:space="preserve">
+  <data name="&gt;&gt;codeEditor.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonToolbar.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;codeEditor.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="messageTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 476</value>
+  <data name="statusTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="statusTextBox.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="statusTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 540</value>
+  </data>
+  <data name="statusTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="statusTextBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>878, 20</value>
+  </data>
+  <data name="statusTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>878, 20</value>
+  </data>
+  <data name="statusTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;statusTextBox.Name" xml:space="preserve">
+    <value>statusTextBox</value>
+  </data>
+  <data name="&gt;&gt;statusTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;statusTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="messageTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="messageTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 462</value>
+  </data>
   <data name="messageTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="messageTextBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>900, 100</value>
+    <value>878, 74</value>
   </data>
   <data name="messageTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="messageTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>900, 100</value>
+    <value>878, 74</value>
   </data>
   <data name="messageTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;messageTextBox.Name" xml:space="preserve">
     <value>messageTextBox</value>
@@ -202,57 +214,123 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;messageTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 580</value>
-  </data>
-  <data name="textBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="textBox1.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>900, 20</value>
-  </data>
-  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>900, 20</value>
-  </data>
-  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
-    <value>textBox1</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="scintilla1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 73</value>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="toolStrip1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
   </data>
-  <data name="scintilla1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 100</value>
+  <data name="toolStrip1.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="scintilla1.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="toolStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>None</value>
   </data>
-  <data name="scintilla1.Text" xml:space="preserve">
-    <value>scintilla1</value>
+  <data name="novoButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJQL9YAtAvlgD0iyUA/WIJ
+        QL9YAtAvlgD0u/P8qwoA+v3XuPPsXQUAt+Fz484zdxUA3IbPjDtP31UAcBs+Me585K4CgNvw4XHnibsK
+        AG7Dj4w7b7+rAKDfi+Nt46V8aqQrAdDnr8bLed9IVwKgz0+Pl/NN47mRrghAjy+ObxyvyO+MdGUAejw5
+        XpNvG14FAPT6wnjHiPnlkX4IgOv3i+Oe+arx6ZF+EIDr9bfj8fG6+Y7xHyPdAADX53jr57vGfeX4hNgL
+        I90QANfj+LP8h8cD5SdHujEArsd7x0Pl+LCAVwIA1+f4uoefHY+U4+2g4/2jdAcAXJ7/HA/8ts+9cvzl
+        wd+NdEcAXI7jt33eNU6ax8bxXtKxWdKdArDP8RUPvzKOX+c/W75lfHT41DDAfscf/Mc/7nLPT/ieI8cX
+        yP3M+OuRhgLgPI6/4D2+0vk94zVf7LY6xz8s8KPj2EKfHP80Pj+eH2l4AN7Y8Wfos+Mfx5+P44vcjl/M
+        eet4xNy587+yV95/zXRgXwAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="&gt;&gt;scintilla1.Name" xml:space="preserve">
-    <value>scintilla1</value>
+  <data name="novoButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
-  <data name="&gt;&gt;scintilla1.Type" xml:space="preserve">
-    <value>ScintillaNET.Scintilla, ScintillaNET, Version=3.6.3.0, Culture=neutral, PublicKeyToken=null</value>
+  <data name="novoButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 63</value>
   </data>
-  <data name="&gt;&gt;scintilla1.Parent" xml:space="preserve">
+  <data name="novoButton.Text" xml:space="preserve">
+    <value>novo [ctrl-n]</value>
+  </data>
+  <data name="novoButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 2</value>
+  </data>
+  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>838, 66</value>
+  </data>
+  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="toolStrip1.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;scintilla1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -264,22 +342,19 @@
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>901, 600</value>
+    <value>884, 561</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>917, 639</value>
+    <value>900, 600</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Compilador</value>
   </data>
-  <data name="&gt;&gt;toolStripButton1.Name" xml:space="preserve">
-    <value>toolStripButton1</value>
+  <data name="&gt;&gt;novoButton.Name" xml:space="preserve">
+    <value>novoButton</value>
   </data>
-  <data name="&gt;&gt;toolStripButton1.Type" xml:space="preserve">
+  <data name="&gt;&gt;novoButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

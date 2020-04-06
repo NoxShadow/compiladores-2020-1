@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScintillaNET;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,37 +13,28 @@ namespace Compiladores20201ProjetoCSharp
 {
     public partial class mainLayout : Form
     {
-        private const int MIN_HEIGHT = 639;
-        private const int MIN_WIDTH = 917;
+        private int maxLineNumberCharLength;
 
         public mainLayout()
         {
             InitializeComponent();
-
-            Resize += HandleResize;
         }
 
-        private void HandleResize(object sender, EventArgs e)
+        private void HandleLineNumber(object sender, EventArgs e)
         {
-            Control control = (Control)sender;
+            var scintilla = (Scintilla)sender;
 
-            var size = new Size(control.Size.Width, control.Size.Height);
+            // Did the number of characters in the line number display change?
+            // i.e. nnn VS nn, or nnnn VS nn, etc...
+            var maxLineNumberCharLength = scintilla.Lines.Count.ToString().Length;
+            if (maxLineNumberCharLength == this.maxLineNumberCharLength)
+                return;
 
-            if (size.Height < MIN_HEIGHT)
-            {
-                size.Height = MIN_HEIGHT;
-            }
-            if (size.Width < MIN_WIDTH)
-            {
-                size.Width = MIN_WIDTH;
-            }
-
-            control.Size = size;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            // Calculate the width required to display the last line number
+            // and include some padding for good measure.
+            const int padding = 2;
+            scintilla.Margins[0].Width = scintilla.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
+            this.maxLineNumberCharLength = maxLineNumberCharLength;
         }
     }
 }

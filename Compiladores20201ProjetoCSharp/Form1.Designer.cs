@@ -1,4 +1,6 @@
-﻿namespace Compiladores20201ProjetoCSharp
+﻿using System.Windows.Forms;
+
+namespace Compiladores20201ProjetoCSharp
 {
     partial class mainLayout
     {
@@ -29,27 +31,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainLayout));
-            this.buttonToolbar = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.codeEditor = new ScintillaNET.Scintilla();
+            this.statusTextBox = new System.Windows.Forms.TextBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.scintilla1 = new ScintillaNET.Scintilla();
-            this.buttonToolbar.SuspendLayout();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.novoButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonToolbar
+            // codeEditor
             // 
-            this.buttonToolbar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.buttonToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
-            resources.ApplyResources(this.buttonToolbar, "buttonToolbar");
-            this.buttonToolbar.Name = "buttonToolbar";
+            resources.ApplyResources(this.codeEditor, "codeEditor");
+            this.codeEditor.EndAtLastLine = false;
+            this.codeEditor.Name = "codeEditor";
+            this.codeEditor.ScrollWidth = 900;
+            this.codeEditor.UseTabs = true;
+            this.codeEditor.TextChanged += new System.EventHandler(this.HandleLineNumber);
             // 
-            // toolStripButton1
+            // statusTextBox
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton1, "toolStripButton1");
-            this.toolStripButton1.Name = "toolStripButton1";
+            resources.ApplyResources(this.statusTextBox, "statusTextBox");
+            this.statusTextBox.Name = "statusTextBox";
+            this.statusTextBox.ReadOnly = true;
             // 
             // messageTextBox
             // 
@@ -57,41 +60,41 @@
             this.messageTextBox.Name = "messageTextBox";
             this.messageTextBox.ReadOnly = true;
             // 
-            // textBox1
+            // toolStrip1
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.novoButton});
+            this.toolStrip1.Name = "toolStrip1";
             // 
-            // scintilla1
+            // novoButton
             // 
-            resources.ApplyResources(this.scintilla1, "scintilla1");
-            this.scintilla1.Name = "scintilla1";
+            resources.ApplyResources(this.novoButton, "novoButton");
+            this.novoButton.Name = "novoButton";
             // 
             // mainLayout
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.scintilla1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.messageTextBox);
-            this.Controls.Add(this.buttonToolbar);
+            this.Controls.Add(this.statusTextBox);
+            this.Controls.Add(this.codeEditor);
             this.Name = "mainLayout";
-            this.buttonToolbar.ResumeLayout(false);
-            this.buttonToolbar.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ToolStrip buttonToolbar;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.TextBox messageTextBox;
-        private System.Windows.Forms.TextBox textBox1;
-        private ScintillaNET.Scintilla scintilla1;
+        private ScintillaNET.Scintilla codeEditor;
+        private TextBox statusTextBox;
+        private TextBox messageTextBox;
+        private ToolStrip toolStrip1;
+        private ToolStripButton novoButton;
     }
 }
 
