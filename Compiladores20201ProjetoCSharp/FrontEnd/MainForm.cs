@@ -52,6 +52,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             }
         }
 
+        //Método copiado do guia da ferramente Scintilla
         private void HandleLineNumber(object sender, EventArgs e)
         {
             var scintilla = (Scintilla)sender;

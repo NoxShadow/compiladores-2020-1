@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using ScintillaNET;
+using System.Windows.Forms;
 
 namespace Compiladores20201ProjetoCSharp.FrontEnd
 {
@@ -31,7 +32,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainLayout));
-            this.codeEditor = new ScintillaNET.Scintilla();
+            this.codeEditor = new Scintilla();
             this.statusTextBox = new System.Windows.Forms.TextBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.toolbar = new System.Windows.Forms.ToolStrip();
@@ -160,7 +161,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         #endregion
 
-        private ScintillaNET.Scintilla codeEditor;
+        private Scintilla codeEditor;
         private TextBox statusTextBox;
         private TextBox messageTextBox;
         private ToolStrip toolbar;
