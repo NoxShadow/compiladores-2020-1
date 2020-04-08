@@ -1,9 +1,10 @@
-﻿using ScintillaNET;
+﻿using Compiladores20201ProjetoCSharp.FrontEnd;
+using ScintillaNET;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Compiladores20201ProjetoCSharp
+namespace Compiladores20201ProjetoCSharp.FrontEnd
 {
     public partial class MainLayout : Form
     {
@@ -12,6 +13,8 @@ namespace Compiladores20201ProjetoCSharp
         private const int BASE_TOOLBAR_BUTTON_HEIGHT = 63;
         private const int TOOLBAR_BUTTON_AMOUNT = 8;
 
+        private readonly CompiladorControler controler;
+
         private int maxLineNumberCharLength;
 
         public MainLayout()
@@ -19,6 +22,8 @@ namespace Compiladores20201ProjetoCSharp
             InitializeComponent();
 
             Resize += HandleResize;
+
+            controler = new CompiladorControler(codeEditor, messageTextBox, statusTextBox);
         }
 
         private void HandleResize(object sender, EventArgs e)
@@ -65,5 +70,44 @@ namespace Compiladores20201ProjetoCSharp
             this.maxLineNumberCharLength = maxLineNumberCharLength;
         }
 
+        private void novoButton_Click(object sender, EventArgs e)
+        {
+            controler.New();
+        }
+
+        private void abrirButton_Click(object sender, EventArgs e)
+        {
+            controler.Open();
+        }
+
+        private void salvarButton_Click(object sender, EventArgs e)
+        {
+            controler.Save();
+        }
+
+        private void copiarButton_Click(object sender, EventArgs e)
+        {
+            controler.Copy();
+        }
+
+        private void colarButton_Click(object sender, EventArgs e)
+        {
+            controler.Paste();
+        }
+
+        private void recortarButton_Click(object sender, EventArgs e)
+        {
+            controler.Cut();
+        }
+
+        private void equipeButton_Click(object sender, EventArgs e)
+        {
+            controler.Team();
+        }
+
+        private void compilarButton_Click(object sender, EventArgs e)
+        {
+            controler.Compile();
+        }
     }
 }

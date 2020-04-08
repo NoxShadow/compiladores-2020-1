@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Compiladores20201ProjetoCSharp.FrontEnd;
+using System;
 using System.Windows.Forms;
 
 namespace Compiladores20201ProjetoCSharp

@@ -49,19 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FrontEnd\CompiladorControler.cs" />
+    <Compile Include="FrontEnd\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FrontEnd\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.pt-BR.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FrontEnd\MainForm.pt-BR.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FrontEnd\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -88,9 +89,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\errobuild2.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="FrontEnd\Resources\clone-solid.png" />
+    <Content Include="FrontEnd\Resources\cut-solid.png" />
+    <Content Include="FrontEnd\Resources\file-solid.png" />
+    <Content Include="FrontEnd\Resources\folder-open-solid.png" />
+    <Content Include="FrontEnd\Resources\paste-solid.png" />
+    <Content Include="FrontEnd\Resources\play-solid.png" />
+    <Content Include="FrontEnd\Resources\save-solid.png" />
+    <Content Include="FrontEnd\Resources\users-solid.png" />
     <Content Include="License.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

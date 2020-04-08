@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Compiladores20201ProjetoCSharp
+namespace Compiladores20201ProjetoCSharp.FrontEnd
 {
     partial class MainLayout
     {
@@ -49,11 +49,14 @@ namespace Compiladores20201ProjetoCSharp
             // codeEditor
             // 
             resources.ApplyResources(this.codeEditor, "codeEditor");
+            this.codeEditor.AutoCAutoHide = false;
+            this.codeEditor.AutoCCancelAtStart = false;
             this.codeEditor.EndAtLastLine = false;
             this.codeEditor.Name = "codeEditor";
-            this.codeEditor.ScrollWidth = 1;
+            this.codeEditor.ScrollWidth = 6000;
             this.codeEditor.UseTabs = true;
             this.codeEditor.TextChanged += new System.EventHandler(this.HandleLineNumber);
+            this.codeEditor.MultipleSelection = false;
             // 
             // statusTextBox
             // 
@@ -87,50 +90,58 @@ namespace Compiladores20201ProjetoCSharp
             resources.ApplyResources(this.novoButton, "novoButton");
             this.novoButton.Name = "novoButton";
             this.novoButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.novoButton.Click += new System.EventHandler(this.novoButton_Click);
             // 
             // abrirButton
             // 
             resources.ApplyResources(this.abrirButton, "abrirButton");
             this.abrirButton.Name = "abrirButton";
             this.abrirButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.abrirButton.Click += new System.EventHandler(this.abrirButton_Click);
             // 
             // salvarButton
             // 
             resources.ApplyResources(this.salvarButton, "salvarButton");
             this.salvarButton.Name = "salvarButton";
             this.salvarButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.salvarButton.Click += new System.EventHandler(this.salvarButton_Click);
             // 
             // copiarButton
             // 
             resources.ApplyResources(this.copiarButton, "copiarButton");
             this.copiarButton.Name = "copiarButton";
             this.copiarButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.copiarButton.Click += new System.EventHandler(this.copiarButton_Click);
             // 
             // colarButton
             // 
             resources.ApplyResources(this.colarButton, "colarButton");
             this.colarButton.Name = "colarButton";
             this.colarButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.colarButton.Click += new System.EventHandler(this.colarButton_Click);
             // 
             // recortarButton
             // 
             resources.ApplyResources(this.recortarButton, "recortarButton");
             this.recortarButton.Name = "recortarButton";
             this.recortarButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.recortarButton.Click += new System.EventHandler(this.recortarButton_Click);
             // 
             // compilarButton
             // 
             resources.ApplyResources(this.compilarButton, "compilarButton");
             this.compilarButton.Name = "compilarButton";
             this.compilarButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.compilarButton.Click += new System.EventHandler(this.compilarButton_Click);
             // 
             // equipeButton
             // 
             resources.ApplyResources(this.equipeButton, "equipeButton");
             this.equipeButton.Name = "equipeButton";
             this.equipeButton.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.equipeButton.Click += new System.EventHandler(this.equipeButton_Click);
             // 
-            // mainLayout
+            // MainLayout
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -138,7 +149,7 @@ namespace Compiladores20201ProjetoCSharp
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.statusTextBox);
             this.Controls.Add(this.codeEditor);
-            this.Name = "mainLayout";
+            this.Name = "MainLayout";
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
             this.ResumeLayout(false);
@@ -147,6 +158,7 @@ namespace Compiladores20201ProjetoCSharp
         }
 
         #endregion
+
         private ScintillaNET.Scintilla codeEditor;
         private TextBox statusTextBox;
         private TextBox messageTextBox;
