@@ -16,7 +16,7 @@ namespace Compiladores20201ProjetoCSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new mainLayout());
+            Application.Run(new MainLayout());
         }
     }
 }
