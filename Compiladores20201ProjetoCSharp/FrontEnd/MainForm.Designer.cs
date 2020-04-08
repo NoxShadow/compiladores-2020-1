@@ -56,7 +56,6 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             this.codeEditor.ScrollWidth = 6000;
             this.codeEditor.UseTabs = true;
             this.codeEditor.TextChanged += new System.EventHandler(this.HandleLineNumber);
-            this.codeEditor.MultipleSelection = false;
             // 
             // statusTextBox
             // 
@@ -149,7 +148,9 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             this.Controls.Add(this.messageTextBox);
             this.Controls.Add(this.statusTextBox);
             this.Controls.Add(this.codeEditor);
+            this.KeyPreview = true;
             this.Name = "MainLayout";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainLayout_KeyDown);
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
             this.ResumeLayout(false);

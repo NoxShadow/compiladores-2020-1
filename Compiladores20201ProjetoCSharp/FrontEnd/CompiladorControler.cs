@@ -19,10 +19,10 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         {
             FileName = "Selecione um arquivo de texto",
             Filter = "Text files (*.txt)|*.txt",
-            Title = "Abrir arquivo de texto"
+            Title = "Selecione ou crie um arquivo de texto"
         };
 
-        private string path = "";
+        private string path = string.Empty;
 
         public CompiladorControler(Scintilla codeEditor, TextBox messageTextBox, TextBox statusTextBox)
         {
@@ -33,7 +33,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         public void New()
         {
-            codeEditor.Text = "";
+            codeEditor.Text = string.Empty;
             ClearMessage();
             ClearPath();
         }
@@ -118,20 +118,29 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         public void Copy()
         {
-            var selection = codeEditor.Selections.FirstOrDefault();
-            var selectionText = codeEditor.Text.Substring(selection.Start, selection.End - selection.Start) ?? "";
+            var text = codeEditor.SelectedText;
 
-            Clipboard.SetText(selectionText);
+            if (!string.IsNullOrEmpty(text))
+            {
+                Clipboard.SetText(text);
+            }
         }
 
         public void Paste()
         {
+            var copy = Clipboard.GetText();
+            if (string.IsNullOrEmpty(copy))
+            {
+                return;
+            }
 
+            codeEditor.ReplaceSelection(copy);
         }
 
         public void Cut()
         {
-
+            Clipboard.SetText(codeEditor.SelectedText);
+            codeEditor.ReplaceSelection(string.Empty);
         }
 
         public void Compile()
@@ -142,8 +151,8 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         public void Team()
         {
             messageTextBox.Text =
-@"Débora Cristine Reinert
-João Victor Braun Quintino
+@"Débora Cristine Reinert,
+João Victor Braun Quintino,
 Nathan Reikdal Cervieri";
         }
 

@@ -10,7 +10,6 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
     {
         private const int BASE_WIDTH = 900;
         private const int BASE_TOOLBAR_BUTTON_WIDHT = 106;
-        private const int BASE_TOOLBAR_BUTTON_HEIGHT = 63;
         private const int TOOLBAR_BUTTON_AMOUNT = 8;
 
         private readonly CompiladorControler controler;
@@ -49,7 +48,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             foreach (ToolStripItem item in items)
             {
                 var newWidth = BASE_TOOLBAR_BUTTON_WIDHT + offsetPerButton;
-                item.Size = new Size(newWidth, BASE_TOOLBAR_BUTTON_HEIGHT);
+                item.Size = new Size(newWidth, item.Size.Height);
             }
         }
 
@@ -108,6 +107,42 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         private void compilarButton_Click(object sender, EventArgs e)
         {
             controler.Compile();
+        }
+
+        private void MainLayout_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.N:
+                        controler.New();
+                        break;
+                    case Keys.O:
+                        controler.Open();
+                        break;
+                    case Keys.S:
+                        controler.Save();
+                        break;
+                    case Keys.C:
+                        controler.Copy();
+                        break;
+                    case Keys.V:
+                        controler.Paste();
+                        break;
+                    case Keys.X:
+                        controler.Cut();
+                        break;
+                }
+            }
+            else if (e.KeyCode == Keys.F9)
+            {
+                controler.Compile();
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                controler.Team();
+            }
         }
     }
 }
