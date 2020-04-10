@@ -118,29 +118,17 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         public void Copy()
         {
-            var text = codeEditor.SelectedText;
-
-            if (!string.IsNullOrEmpty(text))
-            {
-                Clipboard.SetText(text);
-            }
+            codeEditor.Copy();
         }
 
         public void Paste()
         {
-            var copy = Clipboard.GetText();
-            if (string.IsNullOrEmpty(copy))
-            {
-                return;
-            }
-
-            codeEditor.ReplaceSelection(copy);
+            codeEditor.Paste();
         }
 
         public void Cut()
         {
-            Clipboard.SetText(codeEditor.SelectedText);
-            codeEditor.ReplaceSelection(string.Empty);
+            codeEditor.Cut();
         }
 
         public void Compile()

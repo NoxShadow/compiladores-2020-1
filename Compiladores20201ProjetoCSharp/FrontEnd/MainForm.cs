@@ -21,6 +21,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             InitializeComponent();
 
             Resize += HandleResize;
+            codeEditor.InsertCheck += BlackListCharacters;
 
             controler = new CompiladorControler(codeEditor, messageTextBox, statusTextBox);
         }
@@ -125,15 +126,6 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
                     case Keys.S:
                         controler.Save();
                         break;
-                    case Keys.C:
-                        controler.Copy();
-                        break;
-                    case Keys.V:
-                        controler.Paste();
-                        break;
-                    case Keys.X:
-                        controler.Cut();
-                        break;
                 }
             }
             else if (e.KeyCode == Keys.F9)
@@ -144,6 +136,21 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             {
                 controler.Team();
             }
+        }
+
+        private void BlackListCharacters(object sender, InsertCheckEventArgs e)
+        {
+            var blacklist = new string[3] { "\u000e", "\u000f", "\u0013" };
+
+            foreach (var item in blacklist)
+            {
+                if (e.Text.Contains(item.ToString()))
+                {
+                    e.Text.Replace(item, "");
+                }
+                break;
+            }
+
         }
     }
 }
