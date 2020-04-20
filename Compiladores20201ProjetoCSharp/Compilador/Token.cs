@@ -1,10 +1,10 @@
 public class Token
 {
     private int id;
-    private String lexeme;
+    private string lexeme;
     private int position;
 
-    public Token(int id, String lexeme, int position)
+    public Token(int id, string lexeme, int position)
     {
         this.id = id;
         this.lexeme = lexeme;
@@ -16,7 +16,7 @@ public class Token
         return id;
     }
 
-    public final String getLexeme()
+    public final string getLexeme()
     {
         return lexeme;
     }
@@ -26,8 +26,8 @@ public class Token
         return position;
     }
 
-    public String toString()
+    public string toString()
     {
-        return id+" ( "+lexeme+" ) @ "+position;
+        return id + " ( " + lexeme + " ) @ " + position;
     };
 }

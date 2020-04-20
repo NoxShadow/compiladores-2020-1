@@ -1,11 +1,11 @@
-public class SyntaticError extends AnalysisError
+public class SyntaticError : AnalysisError
 {
-    public SyntaticError(String msg, int position)
-	 {
+    public SyntaticError(string msg, int position)
+    {
         super(msg, position);
     }
 
-    public SyntaticError(String msg)
+    public SyntaticError(string msg)
     {
         super(msg);
     }

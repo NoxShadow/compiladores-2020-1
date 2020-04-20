@@ -1,11 +1,11 @@
-public class LexicalError extends AnalysisError
+public class LexicalError : AnalysisError
 {
-    public LexicalError(String msg, int position)
-	 {
+    public LexicalError(string msg, int position)
+    {
         super(msg, position);
     }
 
-    public LexicalError(String msg)
+    public LexicalError(string msg)
     {
         super(msg);
     }

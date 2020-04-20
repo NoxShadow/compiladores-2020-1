@@ -1,11 +1,11 @@
-public class SemanticError extends AnalysisError
+public class SemanticError : AnalysisError
 {
-    public SemanticError(String msg, int position)
-	 {
+    public SemanticError(string msg, int position)
+    {
         super(msg, position);
     }
 
-    public SemanticError(String msg)
+    public SemanticError(string msg)
     {
         super(msg);
     }

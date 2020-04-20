@@ -1,7 +1,7 @@
-public interface Constants extends ScannerConstants
+public interface Constants : ScannerConstants
 {
-    int EPSILON  = 0;
-    int DOLLAR   = 1;
+    int EPSILON = 0;
+    int DOLLAR = 1;
 
     int t_binario = 2;
     int t_hexadecimal = 3;
