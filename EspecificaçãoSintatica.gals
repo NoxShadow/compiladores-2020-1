@@ -1,0 +1,75 @@
+#Options
+GenerateScanner = true
+GenerateParser = false
+Language = Java
+ScannerName = Lexico
+ScannerCaseSensitive = true
+ScannerTable = Hardcode
+Input = String
+#RegularDefinitions
+letra: [a-zA-Z]
+dig: [0-9]
+char: [0-9a-zA-z]
+dig_nao_zero: [1-9]
+int: 0 | ({dig_nao_zero} {dig}*)
+
+comentario_linha: "--" [^\n]*
+comentario_bloco: "-*" ([^$] | "\$")* $
+#Tokens
+
+binario: #[bB] [0-1]+
+hexadecimal: #[xX] ({dig} | [a-f])+
+identificador: {letra} ( (({char} _) | {char})* | ((_ {char} | {char})* _?) )
+inteira: {int}
+real: {int}"."(0 | ({dig}* {dig_nao_zero}))
+string: \"([^\"\n\\])*\"
+
+//palavras reservadas
+bin = identificador: "bin"
+bool = identificador: "bool"
+def = identificador: "def"
+elif = identificador: "elif"
+else = identificador: "else"
+end = identificador: "end"
+false = identificador: "false"
+float = identificador: "float"
+hexa = identificador: "hexa"
+if = identificador: "if"
+int = identificador: "int"
+listen = identificador: "listen"
+main = identificador: "main"
+speak = identificador: "speak"
+str = identificador: "str"
+toInt = identificador: "toInt"
+toBin = identificador: "toBin"
+toHexa = identificador: "toHexa"
+true = identificador: "true"
+whileFalse = identificador: "whileFalse"
+
+//simbolos especiais
+"("
+")"
+"=="
+"!="
+"<"
+">"
+"&"
+"|"
+"!"
+"+"
+"-"
+"*"
+"/"
+","
+"."
+";"
+":"
+"="
+"+="
+"-="
+
+//caracteres de formação reconhecidos e ignorados
+:[\s\t\n]
+:! {comentario_linha}
+:! {comentario_bloco}
+
