@@ -1,26 +1,25 @@
-public class AnalysisError extends Exception
+using System;
+
+namespace Compiladores20201ProjetoCSharp.Compilador
 {
-    private int position;
 
-    public AnalysisError(String msg, int position)
+    public class AnalysisError : Exception
     {
-        super(msg);
-        this.position = position;
-    }
+        public int Position { get; private set; }
 
-    public AnalysisError(String msg)
-    {
-        super(msg);
-        this.position = -1;
-    }
+        public AnalysisError(string msg, int position) : base(msg)
+        {
+            this.Position = position;
+        }
 
-    public int getPosition()
-    {
-        return position;
-    }
+        public AnalysisError(string msg) : base(msg)
+        {
+            Position = -1;
+        }
 
-    public String toString()
-    {
-        return super.toString() + ", @ "+position;
+        public override string ToString()
+        {
+            return base.ToString() + ", @ " + Position;
+        }
     }
 }
