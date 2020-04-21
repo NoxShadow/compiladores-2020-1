@@ -1,33 +1,24 @@
-public class Token
+
+namespace Compiladores20201ProjetoCSharp.Compilador
 {
-    private int id;
-    private string lexeme;
-    private int position;
-
-    public Token(int id, string lexeme, int position)
+    public class Token
     {
-        this.id = id;
-        this.lexeme = lexeme;
-        this.position = position;
+        public int id { get; private set; }
+        public string lexeme { get; private set; }
+        public int position { get; private set; }
+
+
+        public Token(int idd, string lexemee, int positionn)
+        {
+            id = idd;
+            lexeme = lexemee;
+            position = positionn;
+        }
+
+        override
+        public string ToString()
+        {
+            return id + " ( " + lexeme + " ) @ " + position;
+        }
     }
-
-    public final int getId()
-    {
-        return id;
-    }
-
-    public final string getLexeme()
-    {
-        return lexeme;
-    }
-
-    public final int getPosition()
-    {
-        return position;
-    }
-
-    public string toString()
-    {
-        return id + " ( " + lexeme + " ) @ " + position;
-    };
 }
