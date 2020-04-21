@@ -3,22 +3,22 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 {
     public class Token
     {
-        public int id { get; private set; }
-        public string lexeme { get; private set; }
-        public int position { get; private set; }
+        public int Id { get; private set; }
+        public string Lexeme { get; private set; }
+        public int Line { get; private set; }
 
 
-        public Token(int idd, string lexemee, int positionn)
+        public Token(int id, string lexeme, int line)
         {
-            id = idd;
-            lexeme = lexemee;
-            position = positionn;
+            Id = id;
+            Lexeme = lexeme;
+            Line = line;
         }
 
         override
         public string ToString()
         {
-            return id + " ( " + lexeme + " ) @ " + position;
+            return Id + " ( " + Lexeme + " ) @ " + Line;
         }
     }
 }

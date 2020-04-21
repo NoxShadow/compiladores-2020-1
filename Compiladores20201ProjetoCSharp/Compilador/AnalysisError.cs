@@ -5,21 +5,21 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
     public class AnalysisError : Exception
     {
-        public int Position { get; private set; }
+        public int Line { get; private set; }
 
-        public AnalysisError(string msg, int position) : base(msg)
+        public AnalysisError(string msg, int line) : base(msg)
         {
-            this.Position = position;
+            Line = line;
         }
 
         public AnalysisError(string msg) : base(msg)
         {
-            Position = -1;
+            Line = -1;
         }
 
         public override string ToString()
         {
-            return base.ToString() + ", @ " + Position;
+            return base.ToString() + ", @ " + Line;
         }
     }
 }
