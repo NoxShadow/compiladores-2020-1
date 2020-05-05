@@ -1,4 +1,5 @@
-﻿using ScintillaNET;
+﻿using Compiladores20201ProjetoCSharp.Compilador;
+using ScintillaNET;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,10 +13,10 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 {
     public class CompiladorControler
     {
-        private readonly Scintilla codeEditor;
-        private readonly TextBox messageTextBox;
-        private readonly TextBox statusTextBox;
-        private readonly OpenFileDialog openFileDialog = new OpenFileDialog()
+        private readonly Scintilla CodeEditor;
+        private readonly TextBox MessageTextBox;
+        private readonly TextBox StatusTextBox;
+        private readonly OpenFileDialog OpenFileDialog = new OpenFileDialog()
         {
             FileName = "Selecione um arquivo de texto",
             Filter = "Text files (*.txt)|*.txt",
@@ -26,14 +27,14 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         public CompiladorControler(Scintilla codeEditor, TextBox messageTextBox, TextBox statusTextBox)
         {
-            this.codeEditor = codeEditor;
-            this.messageTextBox = messageTextBox;
-            this.statusTextBox = statusTextBox;
+            CodeEditor = codeEditor;
+            MessageTextBox = messageTextBox;
+            StatusTextBox = statusTextBox;
         }
 
         public void New()
         {
-            codeEditor.Text = string.Empty;
+            CodeEditor.Text = string.Empty;
             ClearMessage();
             ClearPath();
         }
@@ -44,14 +45,14 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             {
                 try
                 {
-                    using (var sr = new StreamReader(openFileDialog.FileName))
+                    using (var sr = new StreamReader(OpenFileDialog.FileName))
                     {
                         OpenFile(sr);
                     }
                 }
                 catch (SecurityException ex)
                 {
-                    messageTextBox.Text = $"Security error.\n\nError message: {ex.Message}\n\n" +
+                    MessageTextBox.Text = $"Security error.\n\nError message: {ex.Message}\n\n" +
                     $"Details:\n\n{ex.StackTrace}";
                 }
             }
@@ -59,7 +60,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         private bool SelectFilePath()
         {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
                 SetPath();
 
@@ -75,13 +76,13 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
             ClearMessage();
 
-            codeEditor.Text = code;
+            CodeEditor.Text = code;
         }
 
         private void SetPath()
         {
-            path = openFileDialog.FileName;
-            statusTextBox.Text = path;
+            path = OpenFileDialog.FileName;
+            StatusTextBox.Text = path;
         }
 
         public void Save()
@@ -99,7 +100,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
                 }
                 catch (SecurityException ex)
                 {
-                    messageTextBox.Text = $"Security error.\n\nError message: {ex.Message}\n\n" +
+                    MessageTextBox.Text = $"Security error.\n\nError message: {ex.Message}\n\n" +
                     $"Details:\n\n{ex.StackTrace}";
                 }
             }
@@ -107,7 +108,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         private void SaveFile()
         {
-            var code = codeEditor.Text;
+            var code = CodeEditor.Text;
             using (StreamWriter file = new StreamWriter(path))
             {
                 file.WriteLine(code);
@@ -118,27 +119,83 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
         public void Copy()
         {
-            codeEditor.Copy();
+            CodeEditor.Copy();
         }
 
         public void Paste()
         {
-            codeEditor.Paste();
+            CodeEditor.Paste();
         }
 
         public void Cut()
         {
-            codeEditor.Cut();
+            CodeEditor.Cut();
         }
 
         public void Compile()
         {
-            messageTextBox.Text = "compilação de programas ainda não foi implementada";
+            var tokens = CreateTokenList();
+
+            var message = CreateCompileMessage(tokens);
+            MessageTextBox.Text = message;
+        }
+
+        private List<Token> CreateTokenList()
+        {
+            var lexico = new Lexico(CodeEditor.Text.Replace("\r", ""));
+            var tokens = new List<Token>();
+            var linha = 0;
+
+            try
+            {
+                var token = lexico.NextToken();
+
+                while (token != null)
+                {
+                    tokens.Add(token);
+                    linha = token.Line;
+
+                    token = lexico.NextToken();
+                }
+            }
+            catch (LexicalError le)
+            {
+                tokens.Clear();
+                tokens.Add(new Token(-9999, le.Message, linha));
+            }
+
+            return tokens;
+        }
+
+        private string CreateCompileMessage(List<Token> tokens)
+        {
+            if (tokens.Count() == 1 && tokens.First().Id == -9999)
+            {
+                var error = tokens.First();
+                var errorMessage = $"Erro na linha {error.Line} - {error.Lexeme}";
+                return errorMessage;
+            }
+
+            var message = new StringBuilder();
+
+            message.AppendLine("linha classe                lexema");
+
+            foreach (var token in tokens)
+            {
+                var id = token.Id;
+                var lexema = Constants.CLASSES[id];
+
+                message.AppendLine($"{token.Line.ToString().PadRight(6, ' ')}{token.Lexeme.PadRight(22, ' ')}{lexema}");
+            }
+
+            message.AppendLine("Programa compilado com sucesso");
+
+            return message.ToString();
         }
 
         public void Team()
         {
-            messageTextBox.Text =
+            MessageTextBox.Text =
 @"Débora Cristine Reinert,
 João Victor Braun Quintino,
 Nathan Reikdal Cervieri";
@@ -146,12 +203,12 @@ Nathan Reikdal Cervieri";
 
         private void ClearMessage()
         {
-            messageTextBox.Text = string.Empty;
+            MessageTextBox.Text = string.Empty;
         }
 
         private void ClearPath()
         {
-            statusTextBox.Text = string.Empty;
+            StatusTextBox.Text = string.Empty;
             path = string.Empty;
         }
     }

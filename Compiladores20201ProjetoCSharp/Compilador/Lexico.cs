@@ -9,14 +9,19 @@ namespace Compiladores20201ProjetoCSharp.Compilador
     {
         private int Position;
         private string Input;
+        private bool Erro;
+
+        public Lexico(StringReader input)
+        {
+            SetInput(input);
+        }
 
         public Lexico() : this(new StringReader(""))
         {
         }
 
-        public Lexico(StringReader input)
+        public Lexico(string input) : this(new StringReader(input))
         {
-            SetInput(input);
         }
 
         public void SetInput(StringReader input)
@@ -37,12 +42,8 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 Console.WriteLine(e.StackTrace);
             }
 
-            SetPosition(0);
-        }
-
-        public void SetPosition(int pos)
-        {
-            Position = pos;
+            Position = 0;
+            Erro = false;
         }
 
         public Token NextToken()
@@ -51,6 +52,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 return null;
 
             int start = Position;
+            var quantLinha = Input.Substring(0, Position).Split('\n').Length;
 
             int state = 0;
             int lastState = 0;
@@ -60,7 +62,8 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             while (HasInput())
             {
                 lastState = state;
-                state = NextState(NextChar(), state);
+                var caracter = NextChar();
+                state = NextState(caracter, state);
 
                 if (state < 0)
                     break;
@@ -75,7 +78,18 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 }
             }
             if (endState < 0 || (endState != state && TokenForState(lastState) == -2))
-                throw new LexicalError(SCANNER_ERROR[lastState], start);
+            {
+                Erro = true;
+                var error = SCANNER_ERROR[lastState];
+
+                if (lastState == 1)
+                {
+                    var simbolo = Input.Substring(start, end - start);
+                    error = $"{simbolo} símbolo inválido";
+                }
+
+                throw new LexicalError(error, quantLinha);
+            }
 
             Position = end;
 
@@ -85,9 +99,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 return NextToken();
             else
             {
-                string lexeme = Input.Substring(start, end);
+                string lexeme = Input.Substring(start, end - start);
                 token = LookupToken(token, lexeme);
-                return new Token(token, lexeme, start);
+                return new Token(token, lexeme, quantLinha);
             }
         }
 

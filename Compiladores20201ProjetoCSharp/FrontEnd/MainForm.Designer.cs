@@ -1,5 +1,6 @@
 ﻿using ScintillaNET;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Compiladores20201ProjetoCSharp.FrontEnd
 {
@@ -32,7 +33,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainLayout));
-            this.codeEditor = new Scintilla();
+            this.codeEditor = new ScintillaNET.Scintilla();
             this.statusTextBox = new System.Windows.Forms.TextBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.toolbar = new System.Windows.Forms.ToolStrip();
