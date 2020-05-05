@@ -178,14 +178,14 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
             var message = new StringBuilder();
 
-            message.AppendLine("linha classe                lexema");
+            message.AppendLine("linha classe                 lexema");
 
             foreach (var token in tokens)
             {
                 var id = token.Id;
-                var lexema = Constants.CLASSES[id];
+                var classe = Constants.CLASSES[id];
 
-                message.AppendLine($"{token.Line.ToString().PadRight(6, ' ')}{token.Lexeme.PadRight(22, ' ')}{lexema}");
+                message.AppendLine($"{token.Line.ToString().PadRight(6, ' ')}{classe.PadRight(23, ' ')}{token.Lexeme}");
             }
 
             message.AppendLine("Programa compilado com sucesso");
