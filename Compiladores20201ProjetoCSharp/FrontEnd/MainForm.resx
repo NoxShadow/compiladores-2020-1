@@ -129,10 +129,10 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="codeEditor.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>878, 388</value>
+    <value>878, 370</value>
   </data>
   <data name="codeEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>878, 388</value>
+    <value>878, 370</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="codeEditor.TabIndex" type="System.Int32, mscorlib">
@@ -157,7 +157,7 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="statusTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 540</value>
+    <value>2, 518</value>
   </data>
   <data name="statusTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -186,8 +186,11 @@
   <data name="messageTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
+  <data name="messageTextBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 8.25pt</value>
+  </data>
   <data name="messageTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 462</value>
+    <value>-3, 440</value>
   </data>
   <data name="messageTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -197,6 +200,9 @@
   </data>
   <data name="messageTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="messageTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
   </data>
   <data name="messageTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>878, 74</value>
