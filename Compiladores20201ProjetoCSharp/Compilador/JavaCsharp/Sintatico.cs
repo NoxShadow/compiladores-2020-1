@@ -1,88 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.Collections;
 
 namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
 {
+
     public class Sintatico : Constants
     {
-
         private Stack stack = new Stack();
-
         private Token currentToken;
-
         private Token previousToken;
-
         private Lexico scanner;
-
         private Semantico semanticAnalyser;
 
-        public void parse(Lexico scanner, Semantico semanticAnalyser)
+        public void Parse(Lexico scanner, Semantico semanticAnalyser)
         {
-            this.scanner = this.scanner;
-            this.semanticAnalyser = this.semanticAnalyser;
-            this.stack.clear();
-            this.stack.push(new Integer(0));
-            this.currentToken = this.scanner.nextToken();
-            while (!this.step())
-            {
+            this.scanner = scanner;
+            this.semanticAnalyser = semanticAnalyser;
 
-            }
+            stack.Clear();
+            stack.Push(0);
 
+            currentToken = scanner.NextToken();
+
+            while (!Step())
+                ;
         }
 
-        private bool step()
+        private bool Step()
         {
-            if ((this.currentToken == null))
+            if (currentToken == null)
             {
                 int pos = 0;
-                if ((this.previousToken != null))
-                {
-                    pos = (this.previousToken.getPosition() + this.previousToken.getLexeme().length());
-                }
+                if (previousToken != null)
+                    pos = previousToken.GetPosition() + previousToken.Lexeme.Length;
 
-                this.currentToken = new Token(DOLLAR, "$", pos);
+                currentToken = new Token(DOLLAR, "$", pos);
             }
 
-            int token = this.currentToken.getId();
-            int state = ((Integer)(this.stack.peek())).intValue();
-            int[] cmd = PARSER_TABLE[state][(token - 1)];
+            int token = currentToken.Id;
+            int state = (int)stack.Peek();
+
+            int[] cmd = PARSER_TABLE.[state, token - 1];
+
             switch (cmd[0])
             {
                 case SHIFT:
-                    this.stack.push(new Integer(cmd[1]));
-                    this.previousToken = this.currentToken;
-                    this.currentToken = this.scanner.nextToken();
+                    stack.push(new Integer(cmd[1]));
+                    previousToken = currentToken;
+                    currentToken = scanner.nextToken();
                     return false;
-                    break;
+
                 case REDUCE:
                     int[] prod = PRODUCTIONS[cmd[1]];
-                    for (int i = 0; (i < prod[1]); i++)
-                    {
-                        this.stack.pop();
-                    }
 
-                    int oldState = ((Integer)(this.stack.peek())).intValue();
-                    this.stack.push(new Integer(PARSER_TABLE[oldState][(prod[0] - 1)][1]));
+                    for (int i = 0; i < prod[1]; i++)
+                        stack.pop();
+
+                    int oldState = ((Integer)stack.peek()).intValue();
+                    stack.push(new Integer(PARSER_TABLE[oldState][prod[0] - 1][1]));
                     return false;
-                    break;
+
                 case ACTION:
-                    int action = (FIRST_SEMANTIC_ACTION
-                                + (cmd[1] - 1));
-                    this.stack.push(new Integer(PARSER_TABLE[state][action][1]));
-                    this.semanticAnalyser.executeAction(cmd[1], this.previousToken);
+                    int action = FIRST_SEMANTIC_ACTION + cmd[1] - 1;
+                    stack.push(new Integer(PARSER_TABLE[state][action][1]));
+                    semanticAnalyser.executeAction(cmd[1], previousToken);
                     return false;
-                    break;
+
                 case ACCEPT:
                     return true;
-                    break;
+
                 case ERROR:
-                    throw new SyntaticError(PARSER_ERROR[state], this.currentToken.getPosition());
-                    break;
+                    throw new SyntaticError(PARSER_ERROR[state], currentToken.getPosition());
             }
             return false;
         }
+
     }
 }

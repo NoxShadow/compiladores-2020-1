@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
 {
-    public interface ParserConstants
+    public abstract class ParserConstants
     {
-        int FIRST_SEMANTIC_ACTION = 91;
+        static int FIRST_SEMANTIC_ACTION = 91;
 
-        int SHIFT = 0;
-        int REDUCE = 1;
-        int ACTION = 2;
-        int ACCEPT = 3;
-        int GO_TO = 4;
-        int ERROR = 5;
+        static int SHIFT = 0;
+        static int REDUCE = 1;
+        static int ACTION = 2;
+        static int ACCEPT = 3;
+        static int GO_TO = 4;
+        static int ERROR = 5;
 
-        int[][][] PARSER_TABLE =
+        public static int[,,] PARSER_TABLE = new int[,,]
         {
         { {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {SHIFT ,   4}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,   2}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {GO_TO ,   1}, {GO_TO ,   2}, {ERROR ,   0}, {ERROR ,   0}, {GO_TO ,   3}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0} },
         { {ACCEPT,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0} },
@@ -164,9 +164,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
         { {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  74}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  74}, {REDUCE,  74}, {REDUCE,  74}, {REDUCE,  74}, {REDUCE,  74}, {REDUCE,  74}, {REDUCE,  74}, {ERROR ,   0}, {REDUCE,  74}, {REDUCE,  74}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  74}, {ERROR ,   0}, {REDUCE,  74}, {REDUCE,  74}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0} },
         { {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  75}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  75}, {REDUCE,  75}, {REDUCE,  75}, {REDUCE,  75}, {REDUCE,  75}, {REDUCE,  75}, {REDUCE,  75}, {ERROR ,   0}, {REDUCE,  75}, {REDUCE,  75}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  75}, {ERROR ,   0}, {REDUCE,  75}, {REDUCE,  75}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0} },
         { {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  44}, {REDUCE,  44}, {REDUCE,  44}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0} }
-    };
+        };
 
-        int[][] PRODUCTIONS =
+        static int[,] PRODUCTIONS = new int[,]
         {
         { 49, 4 },
         { 50, 1 },
@@ -413,5 +413,4 @@ namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
         "Erro estado 144"
     };
     }
-
 }

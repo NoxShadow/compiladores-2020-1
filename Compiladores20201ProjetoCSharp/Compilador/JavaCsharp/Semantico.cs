@@ -8,10 +8,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
 {
     public class Semantico : Constants
     {
-        public void executeAction(int action, Token token)
+        public void ExecuteAction(int action, Token token)
         {
-            System.out.println(("Ação #"
-                            + (action + (", Token: " + token))));
+            Console.WriteLine(("Ação #" + (action + (", Token: " + token))));
         }
     }
 }
