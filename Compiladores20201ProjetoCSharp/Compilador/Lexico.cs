@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Compiladores20201ProjetoCSharp.Compilador
 {
-
     public class Lexico : Constants
     {
         private int Position;
@@ -67,7 +66,6 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
                 if (state < 0)
                     break;
-
                 else
                 {
                     if (TokenForState(state) >= 0)

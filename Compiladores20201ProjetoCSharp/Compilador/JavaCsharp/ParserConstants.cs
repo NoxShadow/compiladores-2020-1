@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
 {
     public abstract class ParserConstants
     {
-        static int FIRST_SEMANTIC_ACTION = 91;
+        
+        public static int FIRST_SEMANTIC_ACTION = 91;
 
-        static int SHIFT = 0;
-        static int REDUCE = 1;
-        static int ACTION = 2;
-        static int ACCEPT = 3;
-        static int GO_TO = 4;
-        static int ERROR = 5;
+        public static int SHIFT = 0;
+        public static int REDUCE = 1;
+        public static int ACTION = 2;
+        public static int ACCEPT = 3;
+        public static int GO_TO = 4;
+        public static int ERROR = 5;
+
+        public ParserConstants() { }
 
         public static int[,,] PARSER_TABLE = new int[,,]
         {
@@ -166,7 +165,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
         { {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {REDUCE,  44}, {REDUCE,  44}, {REDUCE,  44}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0}, {ERROR ,   0} }
         };
 
-        static int[,] PRODUCTIONS = new int[,]
+        public static int[,] PRODUCTIONS = new int[,]
         {
         { 49, 4 },
         { 50, 1 },
@@ -264,7 +263,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
         { 90, 2 }
     };
 
-        String[] PARSER_ERROR =
+        public String[] PARSER_ERROR =
         {
         "Erro estado 0",
         "Erro estado 1",

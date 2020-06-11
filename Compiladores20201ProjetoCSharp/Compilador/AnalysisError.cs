@@ -2,7 +2,6 @@ using System;
 
 namespace Compiladores20201ProjetoCSharp.Compilador
 {
-
     public class AnalysisError : Exception
     {
         public int Line { get; private set; }

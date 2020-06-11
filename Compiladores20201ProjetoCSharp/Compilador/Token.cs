@@ -1,4 +1,3 @@
-
 namespace Compiladores20201ProjetoCSharp.Compilador
 {
     public class Token
@@ -6,7 +5,6 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         public int Id { get; private set; }
         public string Lexeme { get; private set; }
         public int Line { get; private set; }
-
 
         public Token(int id, string lexeme, int line)
         {
@@ -19,6 +17,11 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         public string ToString()
         {
             return Id + " ( " + Lexeme + " ) @ " + Line;
+        }
+
+        internal int GetPosition()
+        {
+            return Line;
         }
     }
 }

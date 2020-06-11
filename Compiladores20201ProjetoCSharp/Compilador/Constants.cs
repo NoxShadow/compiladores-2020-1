@@ -1,8 +1,5 @@
-using Compiladores20201ProjetoCSharp.Compilador.JavaCsharp;
-
 namespace Compiladores20201ProjetoCSharp.Compilador
 {
-
     public abstract class Constants : ScannerConstants
     {
         public static int EPSILON = 0;
@@ -106,12 +103,5 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 "símbolo especial",      // "+="
                 "símbolo especial",      // "-="
             };
-
     }
 }
-
-
-
-
-
-

@@ -1,9 +1,7 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 
 namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
 {
-
     public class Sintatico : Constants
     {
         private Stack stack = new Stack();
@@ -11,6 +9,10 @@ namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
         private Token previousToken;
         private Lexico scanner;
         private Semantico semanticAnalyser;
+
+        public Sintatico()
+        {
+        }
 
         public void Parse(Lexico scanner, Semantico semanticAnalyser)
         {
@@ -44,36 +46,35 @@ namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
 
             switch (cmd[0])
             {
-                case SHIFT:
-                    stack.push(new Integer(cmd[1]));
+                case 0:
+                    stack.Push(cmd[1]);
                     previousToken = currentToken;
-                    currentToken = scanner.nextToken();
+                    currentToken = scanner.NextToken();
                     return false;
 
-                case REDUCE:
-                    int[] prod = PRODUCTIONS[cmd[1]];
+                case 1:
+                    int[] prod = PRODUCTIONS.[cmd[1]];
 
                     for (int i = 0; i < prod[1]; i++)
-                        stack.pop();
+                        stack.Pop();
 
-                    int oldState = ((Integer)stack.peek()).intValue();
-                    stack.push(new Integer(PARSER_TABLE[oldState][prod[0] - 1][1]));
+                    int oldState = ((int)stack.Peek();
+                    stack.Push(PARSER_TABLE.[oldState][prod[0] - 1][1]);
                     return false;
 
-                case ACTION:
+                case 2:
                     int action = FIRST_SEMANTIC_ACTION + cmd[1] - 1;
-                    stack.push(new Integer(PARSER_TABLE[state][action][1]));
-                    semanticAnalyser.executeAction(cmd[1], previousToken);
+                    stack.Push(PARSER_TABLE.[state][action][1]);
+                    semanticAnalyser.ExecuteAction(cmd[1], previousToken);
                     return false;
 
-                case ACCEPT:
+                case 3:
                     return true;
 
-                case ERROR:
-                    throw new SyntaticError(PARSER_ERROR[state], currentToken.getPosition());
+                case 5:
+                    throw new SyntaticError(PARSER_ERROR[state], currentToken.GetPosition());
             }
             return false;
         }
-
     }
 }
