@@ -99,7 +99,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             {
                 string lexeme = Input.Substring(start, end - start);
                 token = LookupToken(token, lexeme);
-                return new Token(token, lexeme, quantLinha);
+                return new Token(token, lexeme, quantLinha, Position);
             }
         }
 

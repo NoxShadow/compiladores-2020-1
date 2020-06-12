@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Compiladores20201ProjetoCSharp.Compilador.JavaCsharp
+namespace Compiladores20201ProjetoCSharp.Compilador
 {
     public class Semantico : Constants
     {

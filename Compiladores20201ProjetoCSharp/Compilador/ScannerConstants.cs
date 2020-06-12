@@ -1,4 +1,3 @@
-using Compiladores20201ProjetoCSharp.Compilador.JavaCsharp;
 
 namespace Compiladores20201ProjetoCSharp.Compilador
 {

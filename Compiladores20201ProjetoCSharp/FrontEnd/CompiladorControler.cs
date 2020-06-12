@@ -136,7 +136,23 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         {
             var tokens = CreateTokenList();
 
-            var message = CreateCompileMessage(tokens);
+
+            string message;
+
+            try
+            {
+                var sintatico = new Sintatico();
+                var lexico = new Lexico(CodeEditor.Text.Replace("\r", ""));
+
+                sintatico.Parse(lexico, new Semantico());
+
+                message = "Programa compilado com sucesso";
+            }
+            catch (Exception e)
+            {
+                message = e.Message;
+            }
+
             MessageTextBox.Text = message;
         }
 
@@ -161,7 +177,7 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             catch (LexicalError le)
             {
                 tokens.Clear();
-                tokens.Add(new Token(-9999, le.Message, linha));
+                tokens.Add(new Token(-9999, le.Message, linha, 0));
             }
 
             return tokens;
