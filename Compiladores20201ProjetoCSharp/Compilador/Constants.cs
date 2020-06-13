@@ -1,6 +1,5 @@
 namespace Compiladores20201ProjetoCSharp.Compilador
 {
-
     public abstract class Constants : ScannerConstants
     {
         public static int EPSILON = 0;
@@ -32,26 +31,27 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         public static int t_toHexa = 25;
         public static int t_true = 26;
         public static int t_whileFalse = 27;
-        public static int t_TOKEN_28 = 28; //"("
-        public static int t_TOKEN_29 = 29; //")"
-        public static int t_TOKEN_30 = 30; //"=="
-        public static int t_TOKEN_31 = 31; //"!="
-        public static int t_TOKEN_32 = 32; //"<"
-        public static int t_TOKEN_33 = 33; //">"
-        public static int t_TOKEN_34 = 34; //"&"
-        public static int t_TOKEN_35 = 35; //"|"
-        public static int t_TOKEN_36 = 36; //"!"
-        public static int t_TOKEN_37 = 37; //"+"
-        public static int t_TOKEN_38 = 38; //"-"
-        public static int t_TOKEN_39 = 39; //"*"
-        public static int t_TOKEN_40 = 40; //"/"
-        public static int t_TOKEN_41 = 41; //","
-        public static int t_TOKEN_42 = 42; //"."
-        public static int t_TOKEN_43 = 43; //";"
-        public static int t_TOKEN_44 = 44; //":"
-        public static int t_TOKEN_45 = 45; //"="
-        public static int t_TOKEN_46 = 46; //"+="
-        public static int t_TOKEN_47 = 47; //"-="
+        public static int t_do = 28;
+        public static int t_TOKEN_29 = 29; //"("
+        public static int t_TOKEN_30 = 30; //")"
+        public static int t_TOKEN_31 = 31; //"=="
+        public static int t_TOKEN_32 = 32; //"!="
+        public static int t_TOKEN_33 = 33; //"<"
+        public static int t_TOKEN_34 = 34; //">"
+        public static int t_TOKEN_35 = 35; //"&"
+        public static int t_TOKEN_36 = 36; //"|"
+        public static int t_TOKEN_37 = 37; //"!"
+        public static int t_TOKEN_38 = 38; //"+"
+        public static int t_TOKEN_39 = 39; //"-"
+        public static int t_TOKEN_40 = 40; //"*"
+        public static int t_TOKEN_41 = 41; //"/"
+        public static int t_TOKEN_42 = 42; //","
+        public static int t_TOKEN_43 = 43; //"."
+        public static int t_TOKEN_44 = 44; //";"
+        public static int t_TOKEN_45 = 45; //":"
+        public static int t_TOKEN_46 = 46; //"="
+        public static int t_TOKEN_47 = 47; //"+="
+        public static int t_TOKEN_48 = 47; //"-="
 
         public static readonly string[] CLASSES =
             {
@@ -83,6 +83,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 "palavra reservada",     // toHexa
                 "palavra reservada",     // true
                 "palavra reservada",     // whileFalse
+                "palavra reservada",     // do
                 "símbolo especial",      // "("
                 "símbolo especial",      // ")"
                 "símbolo especial",      // "=="
@@ -104,12 +105,5 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 "símbolo especial",      // "+="
                 "símbolo especial",      // "-="
             };
-
     }
 }
-
-
-
-
-
-
