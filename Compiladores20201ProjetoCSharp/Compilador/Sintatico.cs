@@ -61,7 +61,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 }
                 else
                 {
-                    throw new SyntaticError(currentToken.Lexeme, PARSER_ERROR[x], currentToken.Line);
+                    throw new SyntaticError(string.Format(PARSER_ERROR[x], previousToken?.Lexeme ?? ""), currentToken.Line);
                 }
             }
             else if (IsNonTerminal(x))
@@ -69,7 +69,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 if (PushProduction(x, a))
                     return false;
                 else
-                    throw new SyntaticError(currentToken.Lexeme, PARSER_ERROR[x], currentToken.Line);
+                    throw new SyntaticError(string.Format(PARSER_ERROR[x], previousToken?.Lexeme ?? "\" \""), currentToken.Line);
             }
             else // isSemanticAction(x)
             {
@@ -106,8 +106,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             currentToken = scanner.NextToken();
 
-            while (!Step())
-                ;
+            while (!Step()) ;
         }
     }
 }

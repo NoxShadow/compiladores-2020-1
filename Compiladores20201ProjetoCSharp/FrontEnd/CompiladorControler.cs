@@ -148,9 +148,9 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
                 message = "Programa compilado com sucesso";
             }
-            catch (SyntaticError se)
+            catch (AnalysisError se)
             {
-                message = $"Encontrado {se.Encontrado} {se.Message}";
+                message = $"Erro na linha {se.Line} - {se.Message}";
             }
             catch (Exception e)
             {
