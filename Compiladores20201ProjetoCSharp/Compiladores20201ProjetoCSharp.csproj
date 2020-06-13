@@ -110,8 +110,6 @@
     <Content Include="FrontEnd\Resources\users-solid.png" />
     <Content Include="License.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Compilador\JavaCsharp\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
