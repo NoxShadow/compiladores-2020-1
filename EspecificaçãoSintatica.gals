@@ -8,7 +8,7 @@ SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Hardcode
 Input = Stream
-Parser = SLR
+Parser = LL
 #RegularDefinitions
 letra: [a-zA-Z]
 dig: [0-9]
@@ -151,7 +151,7 @@ do = identificador: "do"
 <repeticao> ::=  do <lista_comando> whileFalse ":" <expressao> end ;
 <comando> ::= <atribuicao> | <entrada> | <saida> | <selecao> | <repeticao> ;
 
-<expressao> ::= <expressao> <expressao_1>;
+<expressao> ::= <elemento> <expressao_1>;
 <expressao_1> ::= "&" <elemento> <expressao_1> | "|" <elemento> <expressao_1> | î ;
 <relacional> ::= <aritmetica> <relacional_1> ;
 <relacional_1> ::= <operador_relacional> <aritmetica> | î ;
@@ -171,7 +171,5 @@ string |
 binario |
 hexadecimal |
 "(" <expressao> ")" |
-"+" <fator> |
-"-" <fator> |
 "+" <membro> |
-"-" <membro> ;
+"-" <membro>;

@@ -13,21 +13,19 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private Lexico scanner;
         private Semantico semanticAnalyser;
 
-        public Sintatico()
+        private static bool IsTerminal(int x)
         {
+            return x < FIRST_NON_TERMINAL;
         }
 
-        public void Parse(Lexico scanner, Semantico semanticAnalyser)
+        private static bool IsNonTerminal(int x)
         {
-            this.scanner = scanner;
-            this.semanticAnalyser = semanticAnalyser;
+            return x >= FIRST_NON_TERMINAL && x < FIRST_SEMANTIC_ACTION;
+        }
 
-            stack.Clear();
-            stack.Push(0);
-
-            currentToken = scanner.NextToken();
-
-            while (!Step());
+        private static bool IsSemanticAction(int x)
+        {
+            return x >= FIRST_SEMANTIC_ACTION;
         }
 
         private bool Step()
@@ -41,63 +39,75 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 currentToken = new Token(DOLLAR, "$", 0, pos);
             }
 
-            int token = currentToken.Id;
-            int state = (int)stack.Peek();
+            int x = (int)stack.Pop();
+            int a = currentToken.Id;
 
-            int[] cmd = PARSER_TABLE.GetMultyRow(state, token - 1);
-
-            switch (cmd[0])
+            if (x == EPSILON)
             {
-                case 0:
-                    stack.Push(cmd[1]);
-                    previousToken = currentToken;
-                    currentToken = scanner.NextToken();
-                    return false;
-
-                case 1:
-                    int[] prod = PRODUCTIONS.GetRow(1);
-
-                    if(stack.Count > 1)
-                    {
-                        for (int i = 0; i < prod[1]; i++)
-                            stack.Pop();
-                    }
-
-                    int oldState = (int)stack.Peek();
-                    stack.Push(PARSER_TABLE[oldState, prod[0] - 1, 1]);
-                    return false;
-
-                case 2:
-                    int action = FIRST_SEMANTIC_ACTION + cmd[1] - 1;
-                    stack.Push(PARSER_TABLE[state, action, 1]);
-                    semanticAnalyser.ExecuteAction(cmd[1], previousToken);
-                    return false;
-
-                case 3:
-                    return true;
-
-                case 5:
-                    throw new SyntaticError(PARSER_ERROR[state], currentToken.Line);
+                return false;
             }
-            return false;
+            else if (IsTerminal(x))
+            {
+                if (x == a)
+                {
+                    if (stack.Count == 0)
+                        return true;
+                    else
+                    {
+                        previousToken = currentToken;
+                        currentToken = scanner.NextToken();
+                        return false;
+                    }
+                }
+                else
+                {
+                    throw new SyntaticError(currentToken.Lexeme, PARSER_ERROR[x], currentToken.Line);
+                }
+            }
+            else if (IsNonTerminal(x))
+            {
+                if (PushProduction(x, a))
+                    return false;
+                else
+                    throw new SyntaticError(currentToken.Lexeme, PARSER_ERROR[x], currentToken.Line);
+            }
+            else // isSemanticAction(x)
+            {
+                semanticAnalyser.ExecuteAction(x - FIRST_SEMANTIC_ACTION, previousToken);
+                return false;
+            }
         }
-    }
 
-    static class ArrayExtension
-    {
-
-        public static T[] GetMultyRow<T>(this T[,,] array, int row1, int row2)
+        private bool PushProduction(int topStack, int tokenInput)
         {
-            return Enumerable.Range(0, array.GetLength(2))
-                .Select(x => array[row1, row2, x])
-                .ToArray();
+            int p = PARSER_TABLE[topStack - FIRST_NON_TERMINAL][tokenInput - 1];
+            if (p >= 0)
+            {
+                int[] production = PRODUCTIONS[p];
+                //empilha a produção em ordem reversa
+                for (int i = production.Length - 1; i >= 0; i--)
+                {
+                    stack.Push(production[i]);
+                }
+                return true;
+            }
+            else
+                return false;
         }
 
-        public static T[] GetRow<T>(this T[,] array, int row)
+        public void Parse(Lexico scanner, Semantico semanticAnalyser)
         {
-            return Enumerable.Range(0, array.GetLength(1))
-                .Select(x => array[row, x])
-                .ToArray();
+            this.scanner = scanner;
+            this.semanticAnalyser = semanticAnalyser;
+
+            stack.Clear();
+            stack.Push(DOLLAR);
+            stack.Push(START_SYMBOL);
+
+            currentToken = scanner.NextToken();
+
+            while (!Step())
+                ;
         }
     }
 }
