@@ -11,7 +11,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private Token currentToken;
         private Token previousToken;
         private Lexico scanner;
-        private Semantico semanticAnalyser;
+        public Semantico semanticAnalyser;
 
         private static bool IsTerminal(int x)
         {

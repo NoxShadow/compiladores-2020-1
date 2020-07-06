@@ -59,6 +59,7 @@
     <Compile Include="Compilador\ScannerConstants.cs" />
     <Compile Include="Compilador\SemanticError.cs" />
     <Compile Include="Compilador\SyntaticError.cs" />
+    <Compile Include="Compilador\TipoEnum.cs" />
     <Compile Include="Compilador\Token.cs" />
     <Compile Include="FrontEnd\CompiladorControler.cs" />
     <Compile Include="FrontEnd\MainForm.cs">

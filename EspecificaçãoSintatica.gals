@@ -122,7 +122,7 @@ do = identificador: "do"
 <fator_2>
 <membro>
 #Grammar
-<programa> ::= <opt_declaracao> main <lista_comando> end ;
+<programa> ::= #15 <opt_declaracao> main <lista_comando> end #16;
 <opt_declaracao> ::= <declaracao> | î ;
 <lista_comando> ::= <comando>";" <lista_comando_1> ;
 <lista_comando_1> ::= <lista_comando> | î ;
@@ -139,7 +139,7 @@ do = identificador: "do"
 <forma_atribuicao> ::= "=" | "+=" | "-=" ;
 <entrada> ::= listen "(" <lista_id> ")" ;
 <saida> ::= speak "(" <lista_expressao> ")" ;
-<lista_expressao> ::= <expressao> <lista_expressao_1> ;
+<lista_expressao> ::= <expressao> #14 <lista_expressao_1> ;
 <lista_expressao_1> ::= "," <lista_expressao> | î ;
 <selecao> ::= if <expressao> ":" <lista_comando> <opt_elif> <opt_else> end ;
 <opt_elif> ::=  <lista_elif> | î ;
@@ -152,24 +152,24 @@ do = identificador: "do"
 <comando> ::= <atribuicao> | <entrada> | <saida> | <selecao> | <repeticao> ;
 
 <expressao> ::= <elemento> <expressao_1>;
-<expressao_1> ::= "&" <elemento> <expressao_1> | "|" <elemento> <expressao_1> | î ;
+<expressao_1> ::= "&" <elemento> #17 <expressao_1> | "|" <elemento> #18 <expressao_1> | î ;
 <relacional> ::= <aritmetica> <relacional_1> ;
-<relacional_1> ::= <operador_relacional> <aritmetica> | î ;
-<elemento> ::= <relacional> | true | false | "!" <elemento> ;
+<relacional_1> ::= <operador_relacional> #9 <aritmetica> #10 | î ;
+<elemento> ::= <relacional> | true #11 | false #12 | "!" <elemento> #13 ;
 <operador_relacional> ::= "==" | "!=" | "<" | ">" ;
 <aritmetica> ::= <termo> <aritmetica_1> ;
-<aritmetica_1> ::= "+" <termo> <aritmetica_1> | "-" <termo> <aritmetica_1> | î ;
+<aritmetica_1> ::= "+" <termo> #1 <aritmetica_1> | "-" <termo> #2 <aritmetica_1> | î ;
 <termo> ::= <fator> <termo_1> ;
-<termo_1> ::= "*" <fator> <termo_1> | "/" <fator> <termo_1> | î ;
+<termo_1> ::= "*" <fator> #3 <termo_1> | "/" <fator> #4 <termo_1> | î ;
 <fator> ::= <membro> <fator_1> ;
 <fator_1> ::= "." <fator_2> | î ;
-<fator_2> ::= toInt | toBin | toHexa  ;
+<fator_2> ::= toInt #22 | toBin #23 | toHexa #24  ;
 <membro> ::= identificador |
-inteira |
-real |
-string |
-binario |
-hexadecimal |
+inteira #5 |
+real #6 |
+string #19 |
+binario #20 |
+hexadecimal #21 |
 "(" <expressao> ")" |
-"+" <membro> |
-"-" <membro>;
+"+" <membro> #7 |
+"-" <membro> #8;
