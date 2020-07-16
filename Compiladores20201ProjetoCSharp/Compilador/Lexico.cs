@@ -8,7 +8,6 @@ namespace Compiladores20201ProjetoCSharp.Compilador
     {
         private int Position;
         private string Input;
-        private bool Erro;
 
         public Lexico(StringReader input)
         {
@@ -42,7 +41,6 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             }
 
             Position = 0;
-            Erro = false;
         }
 
         public Token NextToken()
@@ -77,7 +75,6 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             }
             if (endState < 0 || (endState != state && TokenForState(lastState) == -2))
             {
-                Erro = true;
                 var error = SCANNER_ERROR[lastState];
 
                 if (lastState == 1)

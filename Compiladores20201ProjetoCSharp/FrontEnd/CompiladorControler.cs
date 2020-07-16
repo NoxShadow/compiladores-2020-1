@@ -136,7 +136,6 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         {
             var tokens = CreateTokenList();
 
-
             string message;
 
             try
@@ -185,32 +184,6 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             }
 
             return tokens;
-        }
-
-        private string CreateCompileMessage(List<Token> tokens)
-        {
-            if (tokens.Count() == 1 && tokens.First().Id == -9999)
-            {
-                var error = tokens.First();
-                var errorMessage = $"Erro na linha {error.Line} - {error.Lexeme}";
-                return errorMessage;
-            }
-
-            var message = new StringBuilder();
-
-            message.AppendLine("linha classe                 lexema");
-
-            foreach (var token in tokens)
-            {
-                var id = token.Id;
-                var classe = Constants.CLASSES[id];
-
-                message.AppendLine($"{token.Line.ToString().PadRight(6, ' ')}{classe.PadRight(23, ' ')}{token.Lexeme}");
-            }
-
-            message.AppendLine("Programa compilado com sucesso");
-
-            return message.ToString();
         }
 
         public void Team()

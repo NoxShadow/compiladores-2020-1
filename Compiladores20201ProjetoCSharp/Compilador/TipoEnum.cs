@@ -5,6 +5,8 @@
         Inteiro,
         Real,
         Literal,
-        Logico
+        Logico,
+        Binario,
+        Hexadecimal
     }
 }
