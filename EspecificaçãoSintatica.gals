@@ -149,7 +149,7 @@ do = identificador: "do"
 <lista_expressao> ::= <expressao> #14 <lista_expressao_1> ;
 <lista_expressao_1> ::= "," <lista_expressao> | î ;
 
-<selecao> ::= if <expressao> #39 ":" <lista_comando> <opt_elif> <opt_else> end #30;
+<selecao> ::= if <expressao> #39 ":" <lista_comando> <opt_elif> <opt_else> end #40;
 <opt_elif> ::=  <lista_elif> | î ;
 <lista_elif> ::= <elif> <lista_elif_1> ;
 <lista_elif_1> ::= <lista_elif> | î ;

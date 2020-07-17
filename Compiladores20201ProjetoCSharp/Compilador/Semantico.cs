@@ -10,10 +10,11 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         public string Codigo => _codigo.ToString();
         private readonly Queue<TipoEnum> _tipos = new Queue<TipoEnum>();
         private string _operadorRelacional;
-        private TipoEnum _tipoVar;
+        private TipoEnum _tipoVariavel;
         private object _valorVar;
-        private readonly Queue<object> _pilhaRotulos = new Queue<object>();
-        private readonly Dictionary<string, TipoEnum> _listaIdentificadores = new Dictionary<string, TipoEnum>();
+        private readonly Queue<object> _rotulos = new Queue<object>();
+        private readonly Dictionary<string, TipoEnum> _tabelaSimbolo = new Dictionary<string, TipoEnum>();
+        private readonly List<string> _identificadoresTemporarios = new List<string>();
 
         public void ExecuteAction(int action, Token token)
         {
@@ -93,32 +94,17 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 case 24:
                     Acao24();
                     break;
-                case 25:
-                    Acao25();
-                    break;
-                case 26:
-                    Acao26();
-                    break;
-                case 27:
-                    Acao27();
-                    break;
-                case 28:
-                    Acao28();
-                    break;
-                case 29:
-                    Acao29();
-                    break;
                 case 30:
-                    Acao30();
+                    Acao30(token);
                     break;
                 case 31:
                     Acao31();
                     break;
                 case 32:
-                    Acao32();
+                    Acao32(token);
                     break;
                 case 33:
-                    Acao33();
+                    Acao33(token);
                     break;
                 case 34:
                     Acao34();
@@ -179,17 +165,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             var tipo1 = _tipos.Dequeue();
             var tipo2 = _tipos.Dequeue();
 
-            if (!VerificaTipoExpressaoAritmetica(tipo1) || !VerificaTipoExpressaoAritmetica(tipo2))
-            {
-                throw new SemanticError("tipos incompatíveis em expressão aritmética");
-            }
+            var tipo = GetTipoExpressaoAritmetica(tipo1, tipo2);
 
-            if (tipo1 != tipo2)
-            {
-                throw new SemanticError("Tipos não podem ser diferentes em operação de divisão");
-            }
-
-            _tipos.Enqueue(TipoEnum.Real);
+            _tipos.Enqueue(tipo);
 
             _codigo.AppendLine("div");
         }
@@ -208,26 +186,26 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
         private void Acao7()
         {
-            var tipo1 = _tipos.Dequeue();
+            var tipo = _tipos.Dequeue();
 
-            if (!VerificaTipoExpressaoAritmetica(tipo1))
+            if (!VerificaTipoExpressaoAritmeticaUnaria(tipo))
             {
                 throw new SemanticError("Tipo incompatível em expressão aritmética");
             }
 
-            _tipos.Enqueue(tipo1);
+            _tipos.Enqueue(tipo);
         }
 
         private void Acao8()
         {
-            var tipo1 = _tipos.Dequeue();
+            var tipo = _tipos.Dequeue();
 
-            if (!VerificaTipoExpressaoAritmetica(tipo1))
+            if (!VerificaTipoExpressaoAritmeticaUnaria(tipo))
             {
                 throw new SemanticError("Tipo incompatível em expressão aritmética");
             }
 
-            _tipos.Enqueue(tipo1);
+            _tipos.Enqueue(tipo);
             _codigo.AppendLine("ldc.r8 - 1");
             _codigo.AppendLine("mul");
         }
@@ -283,7 +261,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         {
             var tipo = _tipos.Dequeue();
 
-            if(tipo != TipoEnum.Logico)
+            if (tipo != TipoEnum.Logico)
             {
                 throw new SemanticError("tipo incompatível em expressão lógica");
             }
@@ -302,7 +280,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             {
                 _codigo.AppendLine("conv.i8");
             }
-            if(tipo == TipoEnum.Binario)
+            if (tipo == TipoEnum.Binario)
             {
                 _codigo.AppendLine("ldstr \"#b\"");
                 _codigo.AppendLine("call void [mscorlib]System.Console::Write(string)");
@@ -379,7 +357,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         {
             var tipo = _tipos.Dequeue();
 
-            if(tipo != TipoEnum.Binario && tipo != TipoEnum.Hexadecimal)
+            if (tipo != TipoEnum.Binario && tipo != TipoEnum.Hexadecimal)
             {
                 throw new SemanticError("tipo incompatível em operação de conversão de valor");
             }
@@ -414,58 +392,65 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             _codigo.AppendLine("conv.i8");
         }
 
-        private void Acao25()
+        private void Acao30(Token token)
         {
-            throw new NotImplementedException();
-        }
+            var tipo = StringToTipoEnum(token.Lexeme);
 
-        private void Acao26()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Acao27()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Acao28()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Acao29()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Acao30()
-        {
-            throw new NotImplementedException();
+            _tipoVariavel = tipo;
         }
 
         private void Acao31()
         {
-            throw new NotImplementedException();
+            var tipoVariavelLocal = _tipoVariavel == TipoEnum.Hexadecimal || _tipoVariavel == TipoEnum.Binario ? TipoEnum.Inteiro : _tipoVariavel;
+
+            foreach (var identificador in _identificadoresTemporarios)
+            {
+                if (_tabelaSimbolo.ContainsKey(identificador))
+                {
+                    throw new SemanticError("identificador já declarado");
+                }
+
+                _tabelaSimbolo.Add(identificador, _tipoVariavel);
+                _codigo.AppendLine($".locals { TipoEnumToString(tipoVariavelLocal) } { identificador }");
+            }
+
+            _identificadoresTemporarios.Clear();
         }
 
-        private void Acao32()
+        private void Acao32(Token token)
         {
-            throw new NotImplementedException();
+            _identificadoresTemporarios.Add(token.Lexeme);
         }
 
-        private void Acao33()
+        private void Acao33(Token token)
         {
-            throw new NotImplementedException();
+            var identificador = token.Lexeme;
+
+            if (!_tabelaSimbolo.ContainsKey(identificador))
+            {
+                throw new SemanticError("identificador não declarado");
+            }
+
+            var tipo = _tabelaSimbolo[identificador];
+
+            _tipos.Enqueue(tipo);
+            _codigo.AppendLine($"ldloc {identificador}");
+
+            if (tipo == TipoEnum.Inteiro)
+            {
+                _codigo.AppendFormat("conv.r8");
+            }
         }
 
         private void Acao34()
         {
+            throw new SemanticError("identificador não declarado");
             throw new NotImplementedException();
         }
 
         private void Acao35()
         {
+            throw new SemanticError("identificador não declarado");
             throw new NotImplementedException();
         }
 
@@ -476,6 +461,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
         private void Acao37()
         {
+            throw new SemanticError("identificador já declarado");
             throw new NotImplementedException();
         }
 
@@ -519,19 +505,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             var tipo1 = _tipos.Dequeue();
             var tipo2 = _tipos.Dequeue();
 
-            if (!VerificaTipoExpressaoAritmetica(tipo1) || !VerificaTipoExpressaoAritmetica(tipo2))
-            {
-                throw new SemanticError("tipos incompatíveis em expressão aritmética");
-            }
+            var tipo = GetTipoExpressaoAritmetica(tipo1, tipo2);
 
-            if (tipo1 == TipoEnum.Real || tipo2 == TipoEnum.Real)
-            {
-                _tipos.Enqueue(TipoEnum.Real);
-            }
-            else
-            {
-                _tipos.Enqueue(TipoEnum.Inteiro);
-            }
+            _tipos.Enqueue(tipo);
 
             _codigo.AppendLine(operacao);
         }
@@ -541,7 +517,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             var tipo1 = _tipos.Dequeue();
             var tipo2 = _tipos.Dequeue();
 
-            if (!VerificaTipoExpressaoLogica(tipo1) || !VerificaTipoExpressaoLogica(tipo2))
+            if (tipo1 != TipoEnum.Logico || tipo2 != TipoEnum.Logico)
             {
                 throw new SemanticError("tipos incompatíveis em expressão lógica");
             }
@@ -553,18 +529,18 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
         private bool VerificaTipoExpressaoRelacional(TipoEnum tipo1, TipoEnum tipo2)
         {
-            if ((tipo1 == TipoEnum.Literal || tipo2 == TipoEnum.Literal)
-                && tipo1 != tipo2)
+            if (tipo1 == TipoEnum.Literal && tipo2 == TipoEnum.Literal)
             {
-                return false;
-            }
-            if (!(tipo1 == TipoEnum.Real || tipo1 == TipoEnum.Inteiro) ||
-                !(tipo2 == TipoEnum.Real || tipo2 == TipoEnum.Inteiro))
-            {
-                return false;
+                return true;
             }
 
-            return true;
+            if ((tipo1 == TipoEnum.Real || tipo1 == TipoEnum.Inteiro) &&
+                (tipo2 == TipoEnum.Real || tipo2 == TipoEnum.Inteiro))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private string TipoEnumToString(TipoEnum tipo)
@@ -583,14 +559,33 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             return "";
         }
 
-        private bool VerificaTipoExpressaoAritmetica(TipoEnum tipo)
+        private TipoEnum StringToTipoEnum(string tipo)
+        {
+            switch (tipo)
+            {
+                case "int":
+                    return TipoEnum.Inteiro;
+                case "float":
+                    return TipoEnum.Real;
+                case "str":
+                    return TipoEnum.Literal;
+                case "bool":
+                    return TipoEnum.Logico;
+                case "bin":
+                    return TipoEnum.Binario;
+                case "hexa":
+                    return TipoEnum.Hexadecimal;
+            }
+
+            throw new SemanticError("Tipo não encontrado");
+        }
+
+        private bool VerificaTipoExpressaoAritmeticaUnaria(TipoEnum tipo)
         {
             switch (tipo)
             {
                 case TipoEnum.Inteiro:
                 case TipoEnum.Real:
-                case TipoEnum.Binario:
-                case TipoEnum.Hexadecimal:
                     return true;
                 default:
                     return false;
@@ -598,16 +593,31 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
         }
 
-        private bool VerificaTipoExpressaoLogica(TipoEnum tipo)
+        private TipoEnum GetTipoExpressaoAritmetica(TipoEnum tipo1, TipoEnum tipo2, bool isDivisao = false)
         {
-            switch (tipo)
+            if (tipo1 == TipoEnum.Binario && tipo2 == TipoEnum.Binario)
             {
-                case TipoEnum.Logico:
-                    return true;
-                default:
-                    return false;
+                return TipoEnum.Binario;
             }
 
+            if (tipo1 == TipoEnum.Hexadecimal && tipo2 == TipoEnum.Hexadecimal)
+            {
+                return TipoEnum.Hexadecimal;
+            }
+
+            if (tipo1 == TipoEnum.Inteiro && tipo2 == TipoEnum.Inteiro)
+            {
+                return isDivisao ? TipoEnum.Real : TipoEnum.Inteiro;
+            }
+
+            if (tipo1 == TipoEnum.Real && tipo2 == TipoEnum.Inteiro ||
+                tipo1 == TipoEnum.Inteiro && tipo2 == TipoEnum.Real ||
+                tipo1 == TipoEnum.Real && tipo2 == TipoEnum.Real)
+            {
+                return TipoEnum.Real;
+            }
+
+            throw new SemanticError("tipo(s) incompatível(is) em expressão aritmética");
         }
     }
 }
