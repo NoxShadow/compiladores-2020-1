@@ -10,6 +10,10 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         public string Codigo => _codigo.ToString();
         private readonly Queue<TipoEnum> _tipos = new Queue<TipoEnum>();
         private string _operadorRelacional;
+        private TipoEnum _tipoVar;
+        private object _valorVar;
+        private readonly Queue<object> _pilhaRotulos = new Queue<object>();
+        private readonly Dictionary<string, TipoEnum> _listaIdentificadores = new Dictionary<string, TipoEnum>();
 
         public void ExecuteAction(int action, Token token)
         {
@@ -89,6 +93,66 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 case 24:
                     Acao24();
                     break;
+                case 25:
+                    Acao25();
+                    break;
+                case 26:
+                    Acao26();
+                    break;
+                case 27:
+                    Acao27();
+                    break;
+                case 28:
+                    Acao28();
+                    break;
+                case 29:
+                    Acao29();
+                    break;
+                case 30:
+                    Acao30();
+                    break;
+                case 31:
+                    Acao31();
+                    break;
+                case 32:
+                    Acao32();
+                    break;
+                case 33:
+                    Acao33();
+                    break;
+                case 34:
+                    Acao34();
+                    break;
+                case 35:
+                    Acao35();
+                    break;
+                case 36:
+                    Acao36();
+                    break;
+                case 37:
+                    Acao37();
+                    break;
+                case 38:
+                    Acao38();
+                    break;
+                case 39:
+                    Acao39();
+                    break;
+                case 40:
+                    Acao40();
+                    break;
+                case 41:
+                    Acao41();
+                    break;
+                case 42:
+                    Acao42();
+                    break;
+                case 43:
+                    Acao43();
+                    break;
+                case 44:
+                    Acao44();
+                    break;
 
                 default:
                     throw new SemanticError("Ação semântica não implementada");
@@ -108,28 +172,6 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private void Acao3()
         {
             AcaoAritmeticaSimples("mul");
-        }
-
-        private void AcaoAritmeticaSimples(string operacao)
-        {
-            var tipo1 = _tipos.Dequeue();
-            var tipo2 = _tipos.Dequeue();
-
-            if (!VerificaTipoExpressaoAritmetica(tipo1) || !VerificaTipoExpressaoAritmetica(tipo2))
-            {
-                throw new SemanticError("tipos incompatíveis em expressão aritmética");
-            }
-
-            if (tipo1 == TipoEnum.Real || tipo2 == TipoEnum.Real)
-            {
-                _tipos.Enqueue(TipoEnum.Real);
-            }
-            else
-            {
-                _tipos.Enqueue(TipoEnum.Inteiro);
-            }
-
-            _codigo.AppendLine(operacao);
         }
 
         private void Acao4()
@@ -200,7 +242,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             var tipo1 = _tipos.Dequeue();
             var tipo2 = _tipos.Dequeue();
 
-            if (tipo1 != tipo2)
+            if (VerificaTipoExpressaoRelacional(tipo1, tipo2))
             {
                 throw new SemanticError("Tipo incompatível em expressão relacional");
             }
@@ -372,6 +414,128 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             _codigo.AppendLine("conv.i8");
         }
 
+        private void Acao25()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao26()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao27()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao28()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao29()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao30()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao31()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao32()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao33()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao34()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao35()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao36()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao37()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao38()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao39()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao40()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao41()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao42()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao43()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Acao44()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AcaoAritmeticaSimples(string operacao)
+        {
+            var tipo1 = _tipos.Dequeue();
+            var tipo2 = _tipos.Dequeue();
+
+            if (!VerificaTipoExpressaoAritmetica(tipo1) || !VerificaTipoExpressaoAritmetica(tipo2))
+            {
+                throw new SemanticError("tipos incompatíveis em expressão aritmética");
+            }
+
+            if (tipo1 == TipoEnum.Real || tipo2 == TipoEnum.Real)
+            {
+                _tipos.Enqueue(TipoEnum.Real);
+            }
+            else
+            {
+                _tipos.Enqueue(TipoEnum.Inteiro);
+            }
+
+            _codigo.AppendLine(operacao);
+        }
+
         private void AcaoLogicaSimples(string operacao)
         {
             var tipo1 = _tipos.Dequeue();
@@ -385,6 +549,22 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             _tipos.Enqueue(TipoEnum.Logico);
 
             _codigo.AppendLine(operacao);
+        }
+
+        private bool VerificaTipoExpressaoRelacional(TipoEnum tipo1, TipoEnum tipo2)
+        {
+            if ((tipo1 == TipoEnum.Literal || tipo2 == TipoEnum.Literal)
+                && tipo1 != tipo2)
+            {
+                return false;
+            }
+            if (!(tipo1 == TipoEnum.Real || tipo1 == TipoEnum.Inteiro) ||
+                !(tipo2 == TipoEnum.Real || tipo2 == TipoEnum.Inteiro))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private string TipoEnumToString(TipoEnum tipo)

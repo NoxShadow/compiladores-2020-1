@@ -124,31 +124,40 @@ do = identificador: "do"
 #Grammar
 <programa> ::= #15 <opt_declaracao> main <lista_comando> end #16;
 <opt_declaracao> ::= <declaracao> | î ;
+
 <lista_comando> ::= <comando>";" <lista_comando_1> ;
 <lista_comando_1> ::= <lista_comando> | î ;
+
 <declaracao> ::= def <declaracao_variaveis> ;
 <declaracao_variaveis> ::= <variavel> <declaracao_variaveis_1> ;
 <declaracao_variaveis_1> ::= <declaracao_variaveis> | î ;
 <variavel> ::= <lista_id> <variavel_1> ";" ;
-<variavel_1> ::= ":" <tipo> |"=" <valor> ;
-<lista_id> ::= identificador <lista_id_1> ;
+<variavel_1> ::= ":" <tipo> #30 #31 |"=" <valor> #36 #37 ;
+
+<lista_id> ::= identificador #32 <lista_id_1> ;
 <lista_id_1> ::= ","<lista_id> | î ;
+
 <tipo> ::= int | float | bool | str | bin | hexa ;
+
 <valor> ::= inteira | real | true | false | string | binario | hexadecimal ;
-<atribuicao> ::= <lista_id> <forma_atribuicao> <expressao> ;
+
+<atribuicao> ::= <lista_id> <forma_atribuicao> #38 <expressao> #34 ;
 <forma_atribuicao> ::= "=" | "+=" | "-=" ;
-<entrada> ::= listen "(" <lista_id> ")" ;
+
+<entrada> ::= listen "(" <lista_id> #35 ")" ;
 <saida> ::= speak "(" <lista_expressao> ")" ;
 <lista_expressao> ::= <expressao> #14 <lista_expressao_1> ;
 <lista_expressao_1> ::= "," <lista_expressao> | î ;
-<selecao> ::= if <expressao> ":" <lista_comando> <opt_elif> <opt_else> end ;
+
+<selecao> ::= if <expressao> #39 ":" <lista_comando> <opt_elif> <opt_else> end #30;
 <opt_elif> ::=  <lista_elif> | î ;
 <lista_elif> ::= <elif> <lista_elif_1> ;
 <lista_elif_1> ::= <lista_elif> | î ;
-<elif> ::= elif <expressao> ":" <lista_comando> ;
+<elif> ::= #41 elif <expressao> #42 ":" <lista_comando> ;
 <opt_else> ::= <else> | î ;
-<else> ::= else <lista_comando> ;
-<repeticao> ::=  do <lista_comando> whileFalse ":" <expressao> end ;
+<else> ::= #43 else <lista_comando> ;
+
+<repeticao> ::= #44 do <lista_comando> whileFalse ":" <expressao> #45 end ;
 <comando> ::= <atribuicao> | <entrada> | <saida> | <selecao> | <repeticao> ;
 
 <expressao> ::= <elemento> <expressao_1>;
@@ -164,7 +173,7 @@ do = identificador: "do"
 <fator> ::= <membro> <fator_1> ;
 <fator_1> ::= "." <fator_2> | î ;
 <fator_2> ::= toInt #22 | toBin #23 | toHexa #24  ;
-<membro> ::= identificador |
+<membro> ::= identificador #33 |
 inteira #5 |
 real #6 |
 string #19 |
