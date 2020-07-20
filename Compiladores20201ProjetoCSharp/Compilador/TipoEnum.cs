@@ -7,6 +7,7 @@
         Literal,
         Logico,
         Binario,
-        Hexadecimal
+        Hexadecimal,
+        Erro
     }
 }

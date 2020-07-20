@@ -9,15 +9,19 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private readonly StringBuilder _codigo = new StringBuilder();
         public string Codigo => _codigo.ToString();
         private readonly Queue<TipoEnum> _tipos = new Queue<TipoEnum>();
-        private string _operadorRelacional;
+        private int _operadorRelacional;
+        private int _operadorAtribuicao;
         private TipoEnum _tipoVariavel;
-        private object _valorVar;
+        private string _valorVar;
         private readonly Queue<object> _rotulos = new Queue<object>();
         private readonly Dictionary<string, TipoEnum> _tabelaSimbolo = new Dictionary<string, TipoEnum>();
         private readonly List<string> _identificadoresTemporarios = new List<string>();
 
+        private int _linha = 0;
+
         public void ExecuteAction(int action, Token token)
         {
+            AtualizarLinha(token);
             Console.WriteLine($"Ação #{action} , Token: {token}");
 
             switch (action)
@@ -107,19 +111,19 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                     Acao33(token);
                     break;
                 case 34:
-                    Acao34();
+                    Acao34(token);
                     break;
                 case 35:
                     Acao35();
                     break;
                 case 36:
-                    Acao36();
+                    Acao36(token);
                     break;
                 case 37:
-                    Acao37();
+                    Acao37(token);
                     break;
                 case 38:
-                    Acao38();
+                    Acao38(token);
                     break;
                 case 39:
                     Acao39();
@@ -139,10 +143,20 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 case 44:
                     Acao44();
                     break;
-
                 default:
-                    throw new SemanticError("Ação semântica não implementada");
+                    AcaoSemanticaNaoImplementada(); ;
+                    break;
             }
+        }
+
+        private void AtualizarLinha(Token token)
+        {
+            if (token == null)
+            {
+                return;
+            }
+
+            _linha = token.Line;
         }
 
         private void Acao1()
@@ -169,29 +183,28 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             _tipos.Enqueue(tipo);
 
-            _codigo.AppendLine("div");
+            AdicionarLinha("div");
         }
 
         private void Acao5(Token token)
         {
             _tipos.Enqueue(TipoEnum.Inteiro);
-            _codigo.AppendLine($"ldc.r8 {token.Lexeme}");
+
+            GuardarValorInteiro(token.Lexeme);
         }
 
         private void Acao6(Token token)
         {
             _tipos.Enqueue(TipoEnum.Real);
-            _codigo.AppendLine($"ldc.r8 {token.Lexeme}");
+
+            GuardarValorReal(token.Lexeme);
         }
 
         private void Acao7()
         {
             var tipo = _tipos.Dequeue();
 
-            if (!VerificaTipoExpressaoAritmeticaUnaria(tipo))
-            {
-                throw new SemanticError("Tipo incompatível em expressão aritmética");
-            }
+            VerificaTipoExpressaoAritmeticaUnaria(tipo);
 
             _tipos.Enqueue(tipo);
         }
@@ -200,19 +213,17 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         {
             var tipo = _tipos.Dequeue();
 
-            if (!VerificaTipoExpressaoAritmeticaUnaria(tipo))
-            {
-                throw new SemanticError("Tipo incompatível em expressão aritmética");
-            }
+            VerificaTipoExpressaoAritmeticaUnaria(tipo);
 
             _tipos.Enqueue(tipo);
-            _codigo.AppendLine("ldc.r8 - 1");
-            _codigo.AppendLine("mul");
+
+            GuardarValorInteiro("-1");
+            AdicionarLinha("mul");
         }
 
         private void Acao9(Token token)
         {
-            _operadorRelacional = token.Lexeme;
+            _operadorRelacional = token.Id;
         }
 
         private void Acao10()
@@ -220,26 +231,30 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             var tipo1 = _tipos.Dequeue();
             var tipo2 = _tipos.Dequeue();
 
-            if (VerificaTipoExpressaoRelacional(tipo1, tipo2))
+            if (!VerificaTipoExpressaoRelacional(tipo1, tipo2))
             {
-                throw new SemanticError("Tipo incompatível em expressão relacional");
+                TipoInvalidoOperacaoRelacional();
             }
 
             _tipos.Enqueue(TipoEnum.Logico);
 
             switch (_operadorRelacional)
             {
-                case ">":
-                    _codigo.AppendLine("cgt");
+                // >
+                case t_TOKEN_34:
+                    AdicionarLinha("cgt");
                     break;
-                case "<":
-                    _codigo.AppendLine("clt");
+                // <
+                case t_TOKEN_33:
+                    AdicionarLinha("clt");
                     break;
-                case "==":
-                    _codigo.AppendLine("ceq");
+                // ==
+                case t_TOKEN_31:
+                    AdicionarLinha("ceq");
                     break;
-                case "!=":
-                    _codigo.AppendLine("cnq");
+                // !=
+                case t_TOKEN_32:
+                    AdicionarLinha("cnq");
                     break;
             }
 
@@ -248,13 +263,15 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private void Acao11()
         {
             _tipos.Enqueue(TipoEnum.Logico);
-            _codigo.AppendLine("lcd.i4.1");
+
+            GuardarValorLogico(true);
         }
 
         private void Acao12()
         {
             _tipos.Enqueue(TipoEnum.Logico);
-            _codigo.AppendLine("lcd.i4.0");
+
+            GuardarValorLogico(true);
         }
 
         private void Acao13()
@@ -263,13 +280,13 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             if (tipo != TipoEnum.Logico)
             {
-                throw new SemanticError("tipo incompatível em expressão lógica");
+                TipoInvalidoOperacaoLogica(); ;
             }
 
             _tipos.Enqueue(TipoEnum.Logico);
 
-            _codigo.AppendLine("ldc.i4.1");
-            _codigo.AppendLine("xor");
+            GuardarValorLogico(true);
+            AdicionarLinha("xor");
         }
 
         private void Acao14()
@@ -278,45 +295,45 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             if (tipo == TipoEnum.Inteiro)
             {
-                _codigo.AppendLine("conv.i8");
+                ConverterParaReal();
             }
-            if (tipo == TipoEnum.Binario)
+            else if (tipo == TipoEnum.Binario)
             {
-                _codigo.AppendLine("ldstr \"#b\"");
-                _codigo.AppendLine("call void [mscorlib]System.Console::Write(string)");
-                _codigo.AppendLine("ldc.i4 2");
-                _codigo.AppendLine("call string [mscorlib]System.Convert::ToString(int64, int32)");
+                AdicionarLinha("ldstr \"#b\"");
+                AdicionarLinha("call void [mscorlib]System.Console::Write(string)");
+                AdicionarLinha("ldc.i4 2");
+                AdicionarLinha("call string [mscorlib]System.Convert::ToString(int64, int32)");
 
                 tipo = TipoEnum.Literal;
             }
-            if (tipo == TipoEnum.Hexadecimal)
+            else if (tipo == TipoEnum.Hexadecimal)
             {
-                _codigo.AppendLine("ldstr \"#x\"");
-                _codigo.AppendLine("call void [mscorlib]System.Console::Write(string)");
-                _codigo.AppendLine("ldc.i4 16");
-                _codigo.AppendLine("call string [mscorlib]System.Convert::ToString(int64, int32)");
+                AdicionarLinha("ldstr \"#x\"");
+                AdicionarLinha("call void [mscorlib]System.Console::Write(string)");
+                AdicionarLinha("ldc.i4 16");
+                AdicionarLinha("call string [mscorlib]System.Convert::ToString(int64, int32)");
 
                 tipo = TipoEnum.Literal;
             }
 
-            _codigo.AppendLine($"call void [mscorlib]System.Console::Write({ TipoEnumToString(tipo) })");
+            AdicionarLinha($"call void [mscorlib]System.Console::Write({ TipoEnumToString(tipo) })");
         }
 
         private void Acao15()
         {
-            _codigo.AppendLine(".assembly extern mscorlib {}");
-            _codigo.AppendLine(".assembly _codigo_objeto { }");
-            _codigo.AppendLine(".module _codigo_objeto.exe");
-            _codigo.AppendLine(".class public _UNICA{");
-            _codigo.AppendLine(".method static public void _principal() {");
-            _codigo.AppendLine(".entrypoint");
+            AdicionarLinha(".assembly extern mscorlib {}");
+            AdicionarLinha(".assembly _codigo_objeto { }");
+            AdicionarLinha(".module _codigo_objeto.exe");
+            AdicionarLinha(".class public _UNICA{");
+            AdicionarLinha(".method static public void _principal() {");
+            AdicionarLinha(".entrypoint");
         }
 
         private void Acao16()
         {
-            _codigo.AppendLine("ret");
-            _codigo.AppendLine("}");
-            _codigo.AppendLine("}");
+            AdicionarLinha("ret");
+            AdicionarLinha("}");
+            AdicionarLinha("}");
         }
 
         private void Acao17()
@@ -332,25 +349,22 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private void Acao19(Token token)
         {
             _tipos.Enqueue(TipoEnum.Literal);
-            _codigo.AppendLine($"ldstr { token.Lexeme }");
+
+            GuardarValorLiteral(token.Lexeme);
         }
 
         private void Acao20(Token token)
         {
             _tipos.Enqueue(TipoEnum.Binario);
 
-            _codigo.AppendLine($"ldstr \"{ token.Lexeme.Replace("#b", "") }\"");
-            _codigo.AppendLine("ldc.i4 2");
-            _codigo.AppendLine("call int64 [mscorlib]System.Convert::ToInt64(string, int32)");
+            GuardarValorBinario(token.Lexeme.Replace("#b", ""));
         }
 
         private void Acao21(Token token)
         {
             _tipos.Enqueue(TipoEnum.Hexadecimal);
 
-            _codigo.AppendLine($"ldstr \"{ token.Lexeme.Replace("#x", "") }\"");
-            _codigo.AppendLine("ldc.i4 16");
-            _codigo.AppendLine("call int64 [mscorlib]System.Convert::ToInt64(string, int32)");
+            GuardarValorHexadecimal(token.Lexeme.Replace("#x", ""));
         }
 
         private void Acao22()
@@ -359,11 +373,11 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             if (tipo != TipoEnum.Binario && tipo != TipoEnum.Hexadecimal)
             {
-                throw new SemanticError("tipo incompatível em operação de conversão de valor");
+                TipoInvalidoConversaoValor();
             }
 
             _tipos.Enqueue(TipoEnum.Inteiro);
-            _codigo.AppendLine("conv.r8");
+            ConverterParaReal();
         }
 
         private void Acao23()
@@ -372,11 +386,11 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             if (tipo != TipoEnum.Inteiro && tipo != TipoEnum.Hexadecimal)
             {
-                throw new SemanticError("tipo incompatível em operação de conversão de valor");
+                TipoInvalidoConversaoValor();
             }
 
             _tipos.Enqueue(TipoEnum.Binario);
-            _codigo.AppendLine("conv.i8");
+            ConverterParaInteiro();
         }
 
         private void Acao24()
@@ -385,16 +399,16 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             if (tipo != TipoEnum.Binario && tipo != TipoEnum.Inteiro)
             {
-                throw new SemanticError("tipo incompatível em operação de conversão de valor");
+                TipoInvalidoConversaoValor();
             }
 
             _tipos.Enqueue(TipoEnum.Hexadecimal);
-            _codigo.AppendLine("conv.i8");
+            ConverterParaInteiro();
         }
 
         private void Acao30(Token token)
         {
-            var tipo = StringToTipoEnum(token.Lexeme);
+            var tipo = LexemaToTipoEnum(token.Id);
 
             _tipoVariavel = tipo;
         }
@@ -407,11 +421,10 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             {
                 if (_tabelaSimbolo.ContainsKey(identificador))
                 {
-                    throw new SemanticError("identificador já declarado");
+                    IdentificadorJaDeclarado();
                 }
 
-                _tabelaSimbolo.Add(identificador, _tipoVariavel);
-                _codigo.AppendLine($".locals { TipoEnumToString(tipoVariavelLocal) } { identificador }");
+                AdicionarVariavel(tipoVariavelLocal, identificador);
             }
 
             _identificadoresTemporarios.Clear();
@@ -428,46 +441,78 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             if (!_tabelaSimbolo.ContainsKey(identificador))
             {
-                throw new SemanticError("identificador não declarado");
+                IdentificadorNaoDeclarado();
             }
 
             var tipo = _tabelaSimbolo[identificador];
 
             _tipos.Enqueue(tipo);
-            _codigo.AppendLine($"ldloc {identificador}");
+            TravarValorVariavel(identificador);
 
             if (tipo == TipoEnum.Inteiro)
             {
-                _codigo.AppendFormat("conv.r8");
+                ConverterParaReal();
             }
         }
 
-        private void Acao34()
+        private void Acao34(Token token)
         {
-            throw new SemanticError("identificador não declarado");
-            throw new NotImplementedException();
+            if (_operadorAtribuicao == t_TOKEN_46)
+            {
+
+            }
+            IdentificadorNaoDeclarado();
         }
 
         private void Acao35()
         {
-            throw new SemanticError("identificador não declarado");
+            IdentificadorNaoDeclarado();
             throw new NotImplementedException();
         }
 
-        private void Acao36()
+        private void Acao36(Token token)
         {
-            throw new NotImplementedException();
+            _valorVar = token.Lexeme;
         }
 
-        private void Acao37()
+        private void Acao37(Token token)
         {
-            throw new SemanticError("identificador já declarado");
-            throw new NotImplementedException();
+            var tipoVariavelLocal = TipoDoValor(token.Id);
+
+            foreach (var identificador in _identificadoresTemporarios)
+            {
+                if (_tabelaSimbolo.ContainsKey(identificador))
+                {
+                    IdentificadorJaDeclarado();
+                }
+
+                AdicionarVariavel(tipoVariavelLocal, identificador);
+
+                GuardarValorTipo(tipoVariavelLocal, token);
+
+                AtribuirValor(identificador);
+            }
+
+            _identificadoresTemporarios.Clear();
         }
 
-        private void Acao38()
+        private void Acao38(Token token)
         {
-            throw new NotImplementedException();
+            _operadorAtribuicao = token.Id;
+
+            // -= || +=
+            if (token.Id == t_TOKEN_47 || token.Id == t_TOKEN_48)
+            {
+                foreach (var identificador in _identificadoresTemporarios)
+                {
+                    TravarValorVariavel(identificador);
+
+                    if (_tabelaSimbolo[identificador] == TipoEnum.Inteiro)
+                    {
+                        ConverterParaReal();
+                    }
+                }
+            }
         }
 
         private void Acao39()
@@ -509,7 +554,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             _tipos.Enqueue(tipo);
 
-            _codigo.AppendLine(operacao);
+            AdicionarLinha(operacao);
         }
 
         private void AcaoLogicaSimples(string operacao)
@@ -519,12 +564,12 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             if (tipo1 != TipoEnum.Logico || tipo2 != TipoEnum.Logico)
             {
-                throw new SemanticError("tipos incompatíveis em expressão lógica");
+                TipoInvalidoOperacaoLogica();
             }
 
             _tipos.Enqueue(TipoEnum.Logico);
 
-            _codigo.AppendLine(operacao);
+            AdicionarLinha(operacao);
         }
 
         private bool VerificaTipoExpressaoRelacional(TipoEnum tipo1, TipoEnum tipo2)
@@ -559,38 +604,35 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             return "";
         }
 
-        private TipoEnum StringToTipoEnum(string tipo)
+        private TipoEnum LexemaToTipoEnum(int idLexema)
         {
-            switch (tipo)
+            switch (idLexema)
             {
-                case "int":
+                case t_int:
                     return TipoEnum.Inteiro;
-                case "float":
+                case t_float:
                     return TipoEnum.Real;
-                case "str":
+                case t_str:
                     return TipoEnum.Literal;
-                case "bool":
+                case t_bool:
                     return TipoEnum.Logico;
-                case "bin":
+                case t_bin:
                     return TipoEnum.Binario;
-                case "hexa":
+                case t_hexa:
                     return TipoEnum.Hexadecimal;
+                default:
+                    return TipoEnum.Erro;
             }
-
-            throw new SemanticError("Tipo não encontrado");
         }
 
-        private bool VerificaTipoExpressaoAritmeticaUnaria(TipoEnum tipo)
+        private void VerificaTipoExpressaoAritmeticaUnaria(TipoEnum tipo)
         {
-            switch (tipo)
+            if (tipo == TipoEnum.Real || tipo == TipoEnum.Inteiro)
             {
-                case TipoEnum.Inteiro:
-                case TipoEnum.Real:
-                    return true;
-                default:
-                    return false;
+                return;
             }
 
+            TipoIncompativelExpressaoAritmetica();
         }
 
         private TipoEnum GetTipoExpressaoAritmetica(TipoEnum tipo1, TipoEnum tipo2, bool isDivisao = false)
@@ -617,7 +659,167 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 return TipoEnum.Real;
             }
 
-            throw new SemanticError("tipo(s) incompatível(is) em expressão aritmética");
+            return TipoIncompativelExpressaoAritmetica();
+        }
+
+        private TipoEnum TipoDoValor(int idLexeme)
+        {
+            switch (idLexeme)
+            {
+                case t_binario:
+                    return TipoEnum.Binario;
+                case t_true:
+                case t_false:
+                    return TipoEnum.Logico;
+                case t_inteira:
+                    return TipoEnum.Inteiro;
+                case t_real:
+                    return TipoEnum.Real;
+                case t_string:
+                    return TipoEnum.Literal;
+                case t_hexadecimal:
+                    return TipoEnum.Hexadecimal;
+                default:
+                    return TipoEnum.Erro;
+            }
+        }
+
+        private void GuardarValorLogico(bool valor)
+        {
+            var valorLogico = valor ? 1 : 0;
+
+            AdicionarLinha($"lcd.i4.{ valorLogico }");
+        }
+
+        private void GuardarValorInteiro(string lexeme)
+        {
+            AdicionarLinha($"ldc.r8 { lexeme }");
+        }
+
+        private void GuardarValorReal(string lexeme)
+        {
+            AdicionarLinha($"ldc.r8 { lexeme }");
+        }
+
+        private void GuardarValorLiteral(string lexeme)
+        {
+            AdicionarLinha($"ldstr { lexeme }");
+        }
+
+        private void GuardarValorBinario(string valor)
+        {
+            GuardarValorBaseDiferente(valor, 2);
+        }
+
+        private void GuardarValorHexadecimal(string valor)
+        {
+            GuardarValorBaseDiferente(valor, 16);
+        }
+
+        private void GuardarValorBaseDiferente(string valor, int baseValor)
+        {
+            AdicionarLinha($"ldstr \"{ valor }\"");
+            AdicionarLinha($"ldc.i4 { baseValor }");
+            AdicionarLinha("call int64 [mscorlib]System.Convert::ToInt64(string, int32)");
+        }
+
+        private void GuardarValorTipo(TipoEnum tipo, Token token)
+        {
+            switch (tipo)
+            {
+                case TipoEnum.Binario:
+                    GuardarValorBinario(token.Lexeme);
+                    break;
+                case TipoEnum.Hexadecimal:
+                    GuardarValorHexadecimal(token.Lexeme);
+                    break;
+                case TipoEnum.Inteiro:
+                    GuardarValorInteiro(token.Lexeme);
+                    break;
+                case TipoEnum.Literal:
+                    GuardarValorLiteral(token.Lexeme);
+                    break;
+                case TipoEnum.Logico:
+                    GuardarValorLogico(token.Id == t_true);
+                    break;
+                case TipoEnum.Real:
+                    GuardarValorReal(token.Lexeme);
+                    break;
+            }
+        }
+
+        private void AdicionarVariavel(TipoEnum tipo, string identificador)
+        {
+            _tabelaSimbolo.Add(identificador, _tipoVariavel);
+
+            AdicionarLinha($".locals { TipoEnumToString(tipo) } { identificador }");
+        }
+
+        private void AtribuirValor(string identificador)
+        {
+            AdicionarLinha($"stloc { identificador }");
+        }
+
+        private void TravarValorVariavel(string identificador)
+        {
+            AdicionarLinha($"ldloc {identificador}");
+        }
+
+        private void ConverterParaReal()
+        {
+            AdicionarLinha("conv.r8");
+        }
+
+        private void ConverterParaInteiro()
+        {
+            AdicionarLinha("conv.i8");
+        }
+
+        private void AdicionarLinha(string linha)
+        {
+            _codigo.AppendLine(linha);
+        }
+
+        private void AcaoSemanticaNaoImplementada()
+        {
+            ErroSemantico("Ação semântica não implementada");
+        }
+
+        private void TipoInvalidoOperacaoRelacional()
+        {
+            ErroSemantico("tipo incompatível em expressão relacional");
+        }
+
+        private TipoEnum TipoIncompativelExpressaoAritmetica()
+        {
+            ErroSemantico("Tipo incompatível em expressão aritmética");
+
+            return TipoEnum.Erro;
+        }
+
+        private void TipoInvalidoOperacaoLogica()
+        {
+            ErroSemantico("tipo incompatível em expressão lógica");
+        }
+
+        private void TipoInvalidoConversaoValor()
+        {
+            ErroSemantico("tipo incompatível em operação de conversão de valor");
+        }
+
+        private void IdentificadorJaDeclarado()
+        {
+            ErroSemantico("identificador já declarado");
+        }
+
+        private void IdentificadorNaoDeclarado()
+        {
+            ErroSemantico("identificador não declarado");
+        }
+
+        private void ErroSemantico(string mensagem)
+        {
+            throw new SemanticError(mensagem, _linha);
         }
     }
 }
