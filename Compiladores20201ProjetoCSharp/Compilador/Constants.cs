@@ -49,9 +49,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         public const int t_TOKEN_43 = 43;   //  "."
         public const int t_TOKEN_44 = 44;   //  ";"
         public const int t_TOKEN_45 = 45;   //  ":"
-        public const int t_TOKEN_46 = 46;   //  "="
-        public const int t_TOKEN_47 = 47;   //  "+="
-        public const int t_TOKEN_48 = 48;   //  "-="
+        public const int t_EQUAL = 46;      //  "="
+        public const int t_PLUS_EQUAL = 47; //  "+="
+        public const int t_MINUS_EQUAL = 48;//  "-="
 
         public static readonly string[] CLASSES =
             {

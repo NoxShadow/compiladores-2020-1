@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Compiladores20201ProjetoCSharp.FrontEnd
@@ -142,6 +143,8 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
 
                 sintatico.Parse(lexico, new Semantico());
 
+                SaveCompiledCode(sintatico.semanticAnalyser.Codigo);
+
                 message = "Programa compilado com sucesso";
             }
             catch (AnalysisError se)
@@ -154,6 +157,22 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             }
 
             MessageTextBox.Text = message;
+        }
+
+        private void SaveCompiledCode(string codigo)
+        {
+            var nomeArquivo = "CodigoCompilado.il";
+
+            if (File.Exists(nomeArquivo))
+            {
+                File.Delete(nomeArquivo);
+            }
+
+            using (FileStream fs = File.Create(nomeArquivo))
+            {
+                byte[] codigoByte = new UTF8Encoding(true).GetBytes(codigo);
+                fs.Write(codigoByte, 0, codigoByte.Length);
+            }
         }
 
         private List<Token> CreateTokenList()
@@ -169,15 +188,19 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
                 while (token != null)
                 {
                     tokens.Add(token);
-                    linha = token.Line;
 
                     token = lexico.NextToken();
+                    if (token != null)
+                    {
+                        linha = token.Line;
+                    }
+
                 }
             }
             catch (LexicalError le)
             {
                 tokens.Clear();
-                tokens.Add(new Token(-9999, le.Message, linha, 0));
+                tokens.Add(new Token(-9999, le.Message, le.Line, 0));
             }
 
             return tokens;

@@ -46,7 +46,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         public Token NextToken()
         {
             if (!HasInput())
+            {
                 return null;
+            }
 
             int start = Position;
             var quantLinha = Input.Substring(0, Position).Split('\n').Length;
@@ -63,7 +65,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 state = NextState(caracter, state);
 
                 if (state < 0)
+                {
                     break;
+                }
                 else
                 {
                     if (TokenForState(state) >= 0)
@@ -77,9 +81,18 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             {
                 var error = SCANNER_ERROR[lastState];
 
-                if (lastState == 1)
+                if (lastState == 1 || lastState == 0)
                 {
-                    var simbolo = Input.Substring(start, end - start);
+                    string simbolo;
+
+                    if (end != -1)
+                    {
+                        simbolo = Input.Substring(start, end - start);
+                    }
+                    else
+                    {
+                        simbolo = Input.Substring(Position - 1, 1);
+                    }
                     error = $"{simbolo} símbolo inválido";
                 }
 
@@ -91,7 +104,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             int token = TokenForState(endState);
 
             if (token == 0)
+            {
                 return NextToken();
+            }
             else
             {
                 string lexeme = Input.Substring(start, end - start);
@@ -1682,7 +1697,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private int TokenForState(int state)
         {
             if (state < 0 || state >= TOKEN_STATE.Length)
+            {
                 return -1;
+            }
 
             return TOKEN_STATE[state];
         }
@@ -1698,11 +1715,17 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 int comp = SPECIAL_CASES_KEYS[half].CompareTo(key);
 
                 if (comp == 0)
+                {
                     return SPECIAL_CASES_VALUES[half];
+                }
                 else if (comp < 0)
+                {
                     start = half + 1;
+                }
                 else  //(comp > 0)
+                {
                     end = half - 1;
+                }
             }
 
             return b;
@@ -1716,9 +1739,13 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private char NextChar()
         {
             if (HasInput())
+            {
                 return Input[Position++];
+            }
             else
+            {
                 return unchecked((char)-1);
+            }
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         "",
         "",
         "",
-        "comentário de bloco inválido",
+        "comentário de bloco inválido ou não finalizado",
         "",
         "",
         "",
