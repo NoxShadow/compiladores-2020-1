@@ -3,10 +3,8 @@ using ScintillaNET;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Compiladores20201ProjetoCSharp.FrontEnd
@@ -136,7 +134,6 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
         {
             var tokens = CreateTokenList();
 
-
             string message;
 
             try
@@ -145,6 +142,8 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
                 var lexico = new Lexico(CodeEditor.Text.Replace("\r", ""));
 
                 sintatico.Parse(lexico, new Semantico());
+
+                SaveCompiledCode(sintatico.semanticAnalyser.Codigo);
 
                 message = "Programa compilado com sucesso";
             }
@@ -160,6 +159,22 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
             MessageTextBox.Text = message;
         }
 
+        private void SaveCompiledCode(string codigo)
+        {
+            var nomeArquivo = "CodigoCompilado.il";
+
+            if (File.Exists(nomeArquivo))
+            {
+                File.Delete(nomeArquivo);
+            }
+
+            using (FileStream fs = File.Create(nomeArquivo))
+            {
+                byte[] codigoByte = new UTF8Encoding(true).GetBytes(codigo);
+                fs.Write(codigoByte, 0, codigoByte.Length);
+            }
+        }
+
         private List<Token> CreateTokenList()
         {
             var lexico = new Lexico(CodeEditor.Text.Replace("\r", ""));
@@ -173,44 +188,22 @@ namespace Compiladores20201ProjetoCSharp.FrontEnd
                 while (token != null)
                 {
                     tokens.Add(token);
-                    linha = token.Line;
 
                     token = lexico.NextToken();
+                    if (token != null)
+                    {
+                        linha = token.Line;
+                    }
+
                 }
             }
             catch (LexicalError le)
             {
                 tokens.Clear();
-                tokens.Add(new Token(-9999, le.Message, linha, 0));
+                tokens.Add(new Token(-9999, le.Message, le.Line, 0));
             }
 
             return tokens;
-        }
-
-        private string CreateCompileMessage(List<Token> tokens)
-        {
-            if (tokens.Count() == 1 && tokens.First().Id == -9999)
-            {
-                var error = tokens.First();
-                var errorMessage = $"Erro na linha {error.Line} - {error.Lexeme}";
-                return errorMessage;
-            }
-
-            var message = new StringBuilder();
-
-            message.AppendLine("linha classe                 lexema");
-
-            foreach (var token in tokens)
-            {
-                var id = token.Id;
-                var classe = Constants.CLASSES[id];
-
-                message.AppendLine($"{token.Line.ToString().PadRight(6, ' ')}{classe.PadRight(23, ' ')}{token.Lexeme}");
-            }
-
-            message.AppendLine("Programa compilado com sucesso");
-
-            return message.ToString();
         }
 
         public void Team()

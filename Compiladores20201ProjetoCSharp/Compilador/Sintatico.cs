@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System.Collections;
 
 namespace Compiladores20201ProjetoCSharp.Compilador
 {
@@ -11,7 +8,7 @@ namespace Compiladores20201ProjetoCSharp.Compilador
         private Token currentToken;
         private Token previousToken;
         private Lexico scanner;
-        private Semantico semanticAnalyser;
+        public Semantico semanticAnalyser;
 
         private static bool IsTerminal(int x)
         {
@@ -34,7 +31,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
             {
                 int pos = 0;
                 if (previousToken != null)
+                {
                     pos = previousToken.Position + previousToken.Lexeme.Length;
+                }
 
                 currentToken = new Token(DOLLAR, "$", 0, pos);
             }
@@ -51,7 +50,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 if (x == a)
                 {
                     if (stack.Count == 0)
+                    {
                         return true;
+                    }
                     else
                     {
                         previousToken = currentToken;
@@ -61,21 +62,35 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 }
                 else
                 {
-                    throw new SyntaticError(string.Format(PARSER_ERROR[x], previousToken?.Lexeme ?? ""), currentToken.Line);
+                    return ThrowSemanticError(x, currentToken?.Lexeme, currentToken.Line);
                 }
             }
             else if (IsNonTerminal(x))
             {
                 if (PushProduction(x, a))
+                {
                     return false;
+                }
                 else
-                    throw new SyntaticError(string.Format(PARSER_ERROR[x], previousToken?.Lexeme ?? "\" \""), currentToken.Line);
+                {
+                    return ThrowSemanticError(x, currentToken?.Lexeme, currentToken.Line);
+                }
             }
             else // isSemanticAction(x)
             {
                 semanticAnalyser.ExecuteAction(x - FIRST_SEMANTIC_ACTION, previousToken);
                 return false;
             }
+        }
+
+        private bool ThrowSemanticError(int errorIndex, string lexeme, int line)
+        {
+            if (lexeme == "$")
+            {
+                lexeme = "EOF";
+            }
+
+            throw new SemanticError(string.Format(PARSER_ERROR[errorIndex], lexeme ?? "\" \""), currentToken.Line);
         }
 
         private bool PushProduction(int topStack, int tokenInput)
@@ -92,7 +107,9 @@ namespace Compiladores20201ProjetoCSharp.Compilador
                 return true;
             }
             else
+            {
                 return false;
+            }
         }
 
         public void Parse(Lexico scanner, Semantico semanticAnalyser)
@@ -106,7 +123,10 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 
             currentToken = scanner.NextToken();
 
-            while (!Step()) ;
+            while (!Step())
+            {
+                ;
+            }
         }
     }
 }

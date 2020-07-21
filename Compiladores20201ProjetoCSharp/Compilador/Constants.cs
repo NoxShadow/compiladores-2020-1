@@ -2,56 +2,56 @@ namespace Compiladores20201ProjetoCSharp.Compilador
 {
     public abstract class Constants : ScannerConstants
     {
-        public static int EPSILON = 0;
-        public static int DOLLAR = 1;
+        public const int EPSILON = 0;
+        public const int DOLLAR = 1;
 
-        public static int t_binario = 2;
-        public static int t_hexadecimal = 3;
-        public static int t_identificador = 4;
-        public static int t_inteira = 5;
-        public static int t_real = 6;
-        public static int t_string = 7;
-        public static int t_bin = 8;
-        public static int t_bool = 9;
-        public static int t_def = 10;
-        public static int t_elif = 11;
-        public static int t_else = 12;
-        public static int t_end = 13;
-        public static int t_false = 14;
-        public static int t_float = 15;
-        public static int t_hexa = 16;
-        public static int t_if = 17;
-        public static int t_int = 18;
-        public static int t_listen = 19;
-        public static int t_main = 20;
-        public static int t_speak = 21;
-        public static int t_str = 22;
-        public static int t_toInt = 23;
-        public static int t_toBin = 24;
-        public static int t_toHexa = 25;
-        public static int t_true = 26;
-        public static int t_whileFalse = 27;
-        public static int t_do = 28;
-        public static int t_TOKEN_29 = 29; //"("
-        public static int t_TOKEN_30 = 30; //")"
-        public static int t_TOKEN_31 = 31; //"=="
-        public static int t_TOKEN_32 = 32; //"!="
-        public static int t_TOKEN_33 = 33; //"<"
-        public static int t_TOKEN_34 = 34; //">"
-        public static int t_TOKEN_35 = 35; //"&"
-        public static int t_TOKEN_36 = 36; //"|"
-        public static int t_TOKEN_37 = 37; //"!"
-        public static int t_TOKEN_38 = 38; //"+"
-        public static int t_TOKEN_39 = 39; //"-"
-        public static int t_TOKEN_40 = 40; //"*"
-        public static int t_TOKEN_41 = 41; //"/"
-        public static int t_TOKEN_42 = 42; //","
-        public static int t_TOKEN_43 = 43; //"."
-        public static int t_TOKEN_44 = 44; //";"
-        public static int t_TOKEN_45 = 45; //":"
-        public static int t_TOKEN_46 = 46; //"="
-        public static int t_TOKEN_47 = 47; //"+="
-        public static int t_TOKEN_48 = 47; //"-="
+        public const int t_binario = 2;
+        public const int t_hexadecimal = 3;
+        public const int t_identificador = 4;
+        public const int t_inteira = 5;
+        public const int t_real = 6;
+        public const int t_string = 7;
+        public const int t_bin = 8;
+        public const int t_bool = 9;
+        public const int t_def = 10;
+        public const int t_elif = 11;
+        public const int t_else = 12;
+        public const int t_end = 13;
+        public const int t_false = 14;
+        public const int t_float = 15;
+        public const int t_hexa = 16;
+        public const int t_if = 17;
+        public const int t_int = 18;
+        public const int t_listen = 19;
+        public const int t_main = 20;
+        public const int t_speak = 21;
+        public const int t_str = 22;
+        public const int t_toInt = 23;
+        public const int t_toBin = 24;
+        public const int t_toHexa = 25;
+        public const int t_true = 26;
+        public const int t_whileFalse = 27;
+        public const int t_do = 28;
+        public const int t_TOKEN_29 = 29;   //  "("
+        public const int t_TOKEN_30 = 30;   //  ")"
+        public const int t_TOKEN_31 = 31;   //  "=="
+        public const int t_TOKEN_32 = 32;   //  "!="
+        public const int t_TOKEN_33 = 33;   //  "<"
+        public const int t_TOKEN_34 = 34;   //  ">"
+        public const int t_TOKEN_35 = 35;   //  "&"
+        public const int t_TOKEN_36 = 36;   //  "|"
+        public const int t_TOKEN_37 = 37;   //  "!"
+        public const int t_TOKEN_38 = 38;   //  "+"
+        public const int t_TOKEN_39 = 39;   //  "-"
+        public const int t_TOKEN_40 = 40;   //  "*"
+        public const int t_TOKEN_41 = 41;   //  "/"
+        public const int t_TOKEN_42 = 42;   //  ","
+        public const int t_TOKEN_43 = 43;   //  "."
+        public const int t_TOKEN_44 = 44;   //  ";"
+        public const int t_TOKEN_45 = 45;   //  ":"
+        public const int t_EQUAL = 46;      //  "="
+        public const int t_PLUS_EQUAL = 47; //  "+="
+        public const int t_MINUS_EQUAL = 48;//  "-="
 
         public static readonly string[] CLASSES =
             {
